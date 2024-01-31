@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'business_name' => $request->business_name,
-            'slug' => Str::slug('business_name'),
+            'slug' => Str::slug($request->business_name),
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'address' => $request->address,
