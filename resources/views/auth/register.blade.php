@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}"  enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-4 row">
@@ -59,6 +59,25 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
+                        </div>
+
+                        <div class="mb-4 row">
+                            <label for="restaurant_img" class="col-md-4 col-form-label text-md-right">Aggiungi immagine</label>
+                            <div class="col-md-6">
+                                <input class="form-control" name="restaurant_img" type="file" id="restaurant_img">
+                            </div>
+                        </div>
+
+                        <p>Seleziona la Tipologia</p>
+                        <div class="mb-3 d-flex flex-wrap gap-4">
+                            @foreach ($types as $type)
+                            <div class="form-check">
+                                <input class="form-check-input" name="types[]" type="checkbox" value="{{ $type->id }}" id="type_{{$type->id}}" @checked( in_array($type->id, old('types', [])))>
+                                <label class="form-check-label" for="type_{{$type->id}}">
+                                {{$type->name}}
+                                </label>
+                            </div>
+                            @endforeach
                         </div>
 
                         <div class="mb-4 row">

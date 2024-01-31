@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserController extends Controller
 {
@@ -21,7 +23,10 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+
+        $types = Type::orderBy('name', 'asc')->get();
+
+        return view('auth.register', compact('types'));
     }
 
     /**
@@ -36,8 +41,13 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['required', 'string',],
-            'vat_id' => ['required', 'string', 'min:13', 'max:13']
+            'vat_id' => ['required', 'string', 'min:13', 'max:13'],
+            'restaurant_img' => 'nullable|max:2048|file'
         ]);
+
+        // dd($request);
+
+        $img_path = Storage::put('upload', $request->restaurant_img);
 
         $user = User::create([
             'business_name' => $request->business_name,
@@ -46,9 +56,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'address' => $request->address,
             'vat_id' => $request->vat_id,
-            // 'restaurant_img' => $request->restaurant_img
-
+            'restaurant_img' => $img_path,
         ]);
+
+        $user->types()->attach($request->types);
 
         event(new Registered($user));
 
