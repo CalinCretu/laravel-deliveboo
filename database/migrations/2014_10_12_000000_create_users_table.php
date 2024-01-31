@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('address');
             $table->string('vat_id')->unique();
-            $table->string('restaurant_img');
+            $table->string('restaurant_img')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
