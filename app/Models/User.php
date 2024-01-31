@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password',
         'address',
         'vat_id',
-        // 'restaurant_img'
+        'restaurant_img'
     ];
 
     public function types()
