@@ -6,27 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    @vite(['resources/js/app.js'])
+    @vite(['resources/scss/partials/_show_item.scss', 'resources/js/app.js'])
 </head>
 
 <body>
-    <div class="container d-flex justify-content-center py-4 align-items-center h-100">
-        <div class="card" style="width: 18rem;">
-            <img src="https://picsum.photos/200/150" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ $item->name }}</h5>
-                <p class="card-text">{{ $item->description }}</p>
+    <div class="wrapper">
+        <div class="cards">
+            <div class="card image-card">
+                <img src="https://picsum.photos/200/150" class="card-img-top" alt="...">
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between">
-                    <span>Price</span>
-                    <span class="fw-bold">{{ $item->price }}</span>
-                </li>
-            </ul>
-            <div class="card-body d-flex justify-content-between">
-                <a href="{{ route('admin.items.edit', ['slug' => Auth::user()->slug, 'item' => $item]) }}"
-                    class="btn btn-warning btn-sm">Edit</a>
-                <button id="myBtn" class="btn btn-danger delete">Delete</button>
+            <div class="card description-card">
+                <h1>{{ $item->name }}</h1>
+                <ul class="ps-0">
+                    <li>{{ $item->description }}</li>
+                    <li>&euro; {{ $item->price }}</li>
+                </ul>
+                <div class="flags">
+                    <div style="{{ $item->is_spicy ? '' : 'display: none;' }}">Spicy</div>
+                    <div style="{{ $item->is_vegan ? '' : 'display: none;' }}">Vegan</div>
+                    <div style="{{ $item->is_gluten_free ? '' : 'display: none;' }}">Gluten Free</div>
+                </div>
+                <div class="buttons">
+                    <a href="{{ route('admin.items.edit', ['slug' => Auth::user()->slug, 'item' => $item]) }}"
+                        class="edit-btn">Edit</a>
+                    <button id="myBtn" class="delete-btn">Delete</button>
+                </div>
             </div>
         </div>
         <div id="bgForm" class="bg-form">
