@@ -1,4 +1,142 @@
+
+@use './partials/variables'as *;
+
 @import '~bootstrap/scss/bootstrap';
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+a {
+    text-decoration: none;
+    color: currentColor;
+}
+
+ul,
+ol {
+    list-style: none;
+
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    height: $height-header;
+    background-color: $orange;
+    color: $white;
+
+    .container {
+        height: 100%;
+    }
+
+}
+
+.my-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.logo {
+    font-weight: 700;
+    color: $white;
+    font-size: 2rem;
+}
+
+.my-nav-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0;
+
+    a:hover {
+        color: currentColor;
+    }
+}
+
+
+.bg-orange {
+    background-color: $orange;
+}
+
+.col-white {
+    color: $white;
+}
+
+.wrapper {
+    height: calc(100vh - $height-header);
+    display: grid;
+    place-items: center;
+}
+
+.form-container {
+    width: min(75%, calc(100% - 2rem));
+    border-radius: 1rem;
+    background-color: $linen;
+    border: 1px solid $orange;
+    padding: 2rem;
+    color: $charcoal;
+
+    .form-title {
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .input {
+        position: relative;
+        margin-bottom: 1.5rem;
+
+        input {
+            border: 1px solid $silver;
+            padding: 0.5rem 1rem;
+            color: $charcoal;
+            outline: none;
+            box-shadow: none;
+
+            &:focus {
+                border-color: $orange;
+            }
+        }
+    }
+
+    .checkbox-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+
+        label {
+            background-color: transparent;
+            color: $orange;
+            border: 1px solid $orange;
+            padding: 0.25rem 1rem;
+            border-radius: 5rem;
+            cursor: pointer;
+            transition: $transition;
+
+            &:hover {
+                background-color: $orange;
+                color: $white;
+            }
+        }
+
+        .my-checkbox {
+            appearance: none;
+
+            &:checked~label {
+                background-color: $orange;
+                color: $white;
+            }
+
+        }
+    }
+}
+
 
 .bg-form {
     background-color: rgba(0, 0, 0, 0.586);
