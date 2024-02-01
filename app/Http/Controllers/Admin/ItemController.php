@@ -14,9 +14,9 @@ class ItemController extends Controller
 {
     public function index(string $slug)
     {
-        $user_slug = Auth::user()->slug;
-        if ($slug ==  $user_slug) {
-            $user_id = Auth::user()->id;
+        $user = Auth::user();
+        if ($slug ==  $user->slug) {
+            $user_id = $user->id;
             $items = Item::where('user_id', '=', $user_id)->get();
             return view('admin.items.index', compact('items'));
         }
@@ -51,7 +51,7 @@ class ItemController extends Controller
     {
         $user= Auth::user();
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', compact('item', 'user'));
+            return view('admin.items.show', ['item'=>$item]);
         }
         else {
             return view('admin.errors.error');
@@ -62,7 +62,8 @@ class ItemController extends Controller
     {
         $user= Auth::user();
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.edit', ['item'=>$item, 'user'=>$user]);
+            // dd($item);
+            return view('admin.items.edit', compact('item'));
         }
         else {
             return view('admin.errors.error');
@@ -80,5 +81,7 @@ class ItemController extends Controller
 
     public function destroy(Item $item)
     {
+        $item->delete();
+        return redirect()->route('admin.items.index', ['slug' => Auth::user()->slug]);
     }
 }
