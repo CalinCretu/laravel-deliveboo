@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +24,21 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'verified'])->name('admin.')->group(function () {
+    // Route::resource('/items', ItemController::class);
+    Route::get('{slug}/items', [ItemController::class, 'index'])->name('items.index');
+    Route::get('{slug}/items/create', [ItemController::class, 'create'])->name('items.create');
+    Route::get('{slug}/items/{item}', [ItemController::class, 'show'])->name('items.show');
+    Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+    Route::get('{slug}/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+    Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');
+    Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
