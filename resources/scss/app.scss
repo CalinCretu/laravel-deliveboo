@@ -114,7 +114,8 @@ header {
             border: none;
         }
 
-        input {
+        input,
+        textarea {
             display: block;
             border: 1px solid $silver;
             background-color: $linen;
@@ -132,8 +133,9 @@ header {
 
             }
 
+            &:valid+.label-input,
             &:focus+.label-input,
-            &:valid+.label-input {
+            &.is-invalid~.label-input {
                 top: 0;
                 font-size: 0.875rem;
                 padding-inline: 0.25rem;
@@ -142,6 +144,22 @@ header {
                 color: $orange;
             }
 
+
+
+        }
+
+        .description {
+            height: 100px;
+            resize: none;
+
+            &+.label-input {
+                display: block;
+                position: absolute;
+                left: 1rem;
+                top: 1rem;
+                transform: translateY(-50%);
+                transition: $transition;
+            }
 
 
         }
