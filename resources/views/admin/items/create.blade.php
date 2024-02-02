@@ -1,40 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite(['resources/js/app.js'])
-
-</head>
-
-<body>
+@section('content')
     <div class="container">
-        <form action="{{ route('admin.items.store', ['slug'=>$user->slug]) }}" method="POST">
-            @csrf
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Item Name">
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea type="text" class="form-control" name="description" id="description" placeholder="Item Description"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="number" class="form-control" name="price" id="price" placeholder="Item price">
-            </div>
-            <div class="mb-3">
-                <label for="item_img" class="form-label">Image</label>
-                <input type="text" class="form-control" name="item_img" id="item_img" placeholder="Item Image">
-            </div>
-            <div class="mb-3">
-                <input type="submit" class="btn btn-primary" value="Create">
-            </div>
-        </form>
-    </div>
-</body>
+        <div class="wrapper">
 
-</html>
+            <div class="form-container">
+                <div class="form-title"><h2>Aggiungi un nuovo piatto</h2></div>
+
+                <form action="{{ route('admin.items.store', ['slug'=>$user->slug]) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="input">
+                        <input type="text" class="form-control" name="name" id="name" autocomplete="off" required>
+                        <label for="name" class="label-input">Nome</label>
+                    </div>
+
+                    <div class="input">
+                        <textarea type="text" class="description" name="description" id="description" autocomplete="off" required></textarea>
+                        <label for="description" class="label-input">Descrizione</label>
+                    </div>
+                    <div class="input">
+                        <input type="number" class="form-control" name="price" id="price" autocomplete="off" required>
+                        <label for="price" class="label-input">Prezzo</label>
+                    </div>
+                    <div class="input d-flex">
+                        <label for="item_img" class="label-input-file">Aggiungi immagine</label>
+                        
+                            <input class="input-file" name="item_img" type="file" id="item_img">
+                       
+                    </div>
+
+                    <div class="checkbox-wrapper">
+                        <div class="checkbox-input">
+                            <input class="my-checkbox" type="checkbox" name="is_vegan" id="is_vegan" value="1">
+                            <label for="is_vegan">Vegano</label>
+                        </div>
+    
+                        <div class="checkbox-input">
+                            <input class="my-checkbox" type="checkbox" name="is_gluten_free" id="is_gluten_free" value="1">
+                            <label for="is_gluten_free">Senza glutine</label>
+                        </div>
+    
+                        <div class="checkbox-input">
+                            <input class="my-checkbox" type="checkbox" name="is_spicy" id="is_spicy" value="1">
+                            <label for="is_spicy">Piccante</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="submit" class="btn btn-primary orange" value="Aggiungi">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
