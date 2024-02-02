@@ -27,10 +27,13 @@
       border: 1px solid $orange;
       padding: 2rem;
       color: $charcoal;
-
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
+
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
 
       .card.image-card {
         aspect-ratio: 1;
@@ -75,6 +78,10 @@
           align-items: center;
           margin-top: 20%;
           gap: 4rem;
+
+          @media (max-width: 768px) {
+            justify-content: space-between;
+          }
 
           .edit-btn,
           .delete-btn {
