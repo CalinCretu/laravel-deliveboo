@@ -4,6 +4,10 @@
 .items-show {
   font-family: 'Outfit', sans-serif;
   min-height: 100vh;
+  background-image: url(/public/show_img/show-background.jpg);
+  background-size: cover;
+  background-position: center;
+
 
   a {
     text-decoration: none;
@@ -23,7 +27,7 @@
 
     .cards {
       border-radius: 1rem;
-      background-color: $linen;
+      background-color: rgba(255, 242, 231, 0.9);
       border: 1px solid $orange;
       padding: 2rem;
       color: $charcoal;
