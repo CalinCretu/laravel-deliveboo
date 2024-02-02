@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="show">
+    <section class="items-show">
         <div class="wrapper">
             <div class="cards">
                 <div class="card image-card col-auto">
