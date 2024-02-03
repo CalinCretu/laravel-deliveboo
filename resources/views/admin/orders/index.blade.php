@@ -113,6 +113,8 @@
         const priceOrdDomEl = document.querySelectorAll(".price-orders");
         const cardDateDomEl = document.querySelector(".card-date");
         const cardPriceDomEl = document.querySelector(".card-price");
+        const orderContentDomEl = document.querySelector(".orders-content");
+        
         dateOrdDomEl[0].classList.add('selected');
         ordersDateDomEl[0].classList.remove('inactive');
         dateFilterDomEl.classList.add('filtered')
@@ -139,7 +141,8 @@
 
         dateFilterDomEl.addEventListener("click", function() {
             if (dateFilter == false) {
-                ordersDateDomEl[currentOrder].classList.add('inactive')
+                orderContentDomEl.scroll({top:0,behavior:'smooth'});
+                ordersPriceDomEl[currentOrder].classList.add('inactive')
                 priceOrdDomEl[currentOrder].classList.remove('selected')
                 currentOrder = 0;
                 ordersDateDomEl[currentOrder].classList.remove('inactive')
@@ -161,6 +164,7 @@
 
         priceFilterDomEl.addEventListener("click", function() {
             if (dateFilter) {
+                orderContentDomEl.scroll({top:0,behavior:'smooth'});
                 ordersDateDomEl[currentOrder].classList.add('inactive')
                 dateOrdDomEl[currentOrder].classList.remove('selected')
                 currentOrder = 0;
