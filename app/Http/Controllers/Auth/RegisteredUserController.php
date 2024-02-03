@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
 
         // dd($request);
 
-        $img_path = Storage::put('upload', $request->restaurant_img);
+        $img_path = Storage::put('restaurants_img', $request->restaurant_img);
 
         $user = User::create([
             'business_name' => $request->business_name,
