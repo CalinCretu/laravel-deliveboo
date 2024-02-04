@@ -24,6 +24,10 @@
                         <button id="myBtn" class="delete-btn">Delete</button>
                     </div>
                 </div>
+                <a class="next-item"
+                    href="{{ route('admin.items.show', ['slug' => Auth::user()->slug, 'item' => $nextItemId]) }}">&rsaquo;</a>
+                <a class="previous-item"
+                    href="{{ route('admin.items.show', ['slug' => Auth::user()->slug, 'item' => $previousItemId]) }}">&lsaquo;</a>
             </div>
             <div id="bgForm" class="bg-form">
                 <div class="d-flex gap-3 delete-form">
@@ -35,6 +39,8 @@
                     <button id="noBtn" class="btn btn-primary btn-lg">No</button>
                 </div>
             </div>
+            {{-- <button id="anotherItemBtn" class="btn btn-primary btn-lg">Go to Another Item</button> --}}
+
         </div>
     </section>
 
@@ -42,6 +48,7 @@
         const deleteDomEl = document.getElementById("myBtn");
         const formDomEl = document.getElementById("bgForm");
         const noBtnDomEl = document.getElementById("noBtn");
+        const anotherItemBtn = document.getElementById("anotherItemBtn");
 
 
         // console.log(formDomEl);
