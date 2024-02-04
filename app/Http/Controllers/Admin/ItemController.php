@@ -51,8 +51,26 @@ class ItemController extends Controller
     public function show(string $slug, Item $item)
     {
         $user = Auth::user();
+
+        $items = Item::where('user_id', '=', $user->id)->pluck('id')->toArray();
+
+
+        $currentItemIndex = array_search($item->id, $items);
+        if ($currentItemIndex == 0) {
+            $nextItemId = $items[$currentItemIndex + 1];
+            $previousItemId = $items[count($items) - 1];
+        } elseif ($currentItemIndex == count($items) - 1) {
+            $previousItemId = $items[$currentItemIndex - 1];
+            $nextItemId = $items[0];
+        } else {
+            $previousItemId = $items[$currentItemIndex - 1];
+            $nextItemId = $items[$currentItemIndex + 1];
+        };
+
+        // dd($nextItemId, $previousItemId);
+
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', ['item' => $item]);
+            return view('admin.items.show', ['item' => $item], compact('previousItemId', 'nextItemId'));
         } else {
             return view('admin.errors.error');
         }
