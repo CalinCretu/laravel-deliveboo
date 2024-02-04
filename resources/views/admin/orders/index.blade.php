@@ -59,7 +59,7 @@
                                     @foreach ($order->items as $item)
                                         <div class="order-line">
                                             <div>{{ $item->name }} x{{ $item->pivot->quantity }}</div>
-                                            <div>&euro;&nbsp;{{ $item->price }}</div>
+                                            <div>&euro;&nbsp;{{ $item->pivot->partial_price }}</div>
                                         </div>
                                     @endforeach
                                 </div>
@@ -88,7 +88,7 @@
                                     @foreach ($order->items as $item)
                                         <div class="order-line">
                                             <div>{{ $item->name }} x{{ $item->pivot->quantity }}</div>
-                                            <div>&euro;&nbsp;{{ $item->price }}</div>
+                                            <div>&euro;&nbsp;{{ $item->pivot->partial_price }}</div>
                                         </div>
                                     @endforeach
                                 </div>

@@ -65,7 +65,9 @@ class OrderSeeder extends Seeder
             $new_order->created_at = now();
             $new_order->updated_at = now();
             $new_order->save();
-            $new_order->items()->attach($faker->randomElements($carlo_items, null));
+            $new_order->items()->attach($faker->randomElements($carlo_items, null), [
+                'quantity' => $faker->randomDigitNotNull()
+            ]);
         }
     }
 }
