@@ -31,18 +31,20 @@
 
                 <div class="checkbox-wrapper">
                     <div class="checkbox-input">
-                        <input class="my-checkbox" type="checkbox" name="is_vegan" id="is_vegan" value="{{ old('is_vegan', $item->is_vegan) }}">
+                        <input class="my-checkbox" type="checkbox" name="is_vegan" id="is_vegan" value="{{ old('is_vegan', $item->is_vegan) }}" @checked($item->is_vegan)>
                         <label for="is_vegan">Vegano</label>
+                        <span>Value: {{ $item->is_vegan }}</span>
                     </div>
 
                     <div class="checkbox-input">
-                        <input class="my-checkbox" type="checkbox" name="is_gluten_free" id="is_gluten_free" value="{{ old('is_gluten_free', $item->is_gluten_free) }}">
+                        <input class="my-checkbox" type="checkbox" name="is_gluten_free" id="is_gluten_free" value="{{ old('is_gluten_free', $item->is_gluten_free) }}" @if($item->is_gluten_free) checked @endif>
                         <label for="is_gluten_free">Senza glutine</label>
                     </div>
 
                     <div class="checkbox-input">
-                        <input class="my-checkbox" type="checkbox" name="is_spicy" id="is_spicy" value="{{ old('is_spicy', $item->is_spicy) }}">
+                        <input class="my-checkbox" type="checkbox" name="is_spicy" id="is_spicy"   @if($item->is_spicy) checked @endif>
                         <label for="is_spicy">Piccante</label>
+                        <span>Value: {{ $item->is_spicy }}</span>
                     </div>
                 </div>
                 <div class="mb-3">

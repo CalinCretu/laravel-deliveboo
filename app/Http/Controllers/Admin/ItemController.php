@@ -71,6 +71,7 @@ class ItemController extends Controller
 
     public function update(UpdateItemRequest $request, Item $item)
     {
+        // dd($request);
         $user = Auth::user();
         $data = $request->all();
         $data['slug'] = Str::slug($data['name']);
