@@ -71,13 +71,10 @@ class ItemController extends Controller
 
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:items,slug|max:255',
+            'slug' => 'string|unique:items,slug|max:255',
             'price' => 'required|numeric|between:0,999.99',
             'item_img' => 'required',
             'description' => 'required|string',
-            'is_vegan' => 'boolean',
-            'is_gluten_free' => 'boolean',
-            'is_spicy' => 'boolean',
             'is_visible' => 'boolean',
         ]);
 
@@ -121,7 +118,7 @@ class ItemController extends Controller
         // dd($nextItemId, $previousItemId);
 
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', ['item' => $item], compact('user','previousItemId', 'nextItemId'));
+            return view('admin.items.show', ['item' => $item], compact('user', 'previousItemId', 'nextItemId'));
         } else {
             return view('admin.errors.error');
         }
@@ -145,13 +142,10 @@ class ItemController extends Controller
         $user = Auth::user();
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|unique:items,slug|max:255',
+            'slug' => 'string|unique:items,slug|max:255',
             'price' => 'required|numeric|between:0,999.99',
-            'item_img' => 'required',
+            // 'item_img' => 'required',
             'description' => 'required|string',
-            'is_vegan' => 'boolean',
-            'is_gluten_free' => 'boolean',
-            'is_spicy' => 'boolean',
             'is_visible' => 'boolean',
         ]);
         $data = $request->all();
