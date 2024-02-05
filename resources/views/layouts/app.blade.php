@@ -28,7 +28,7 @@
 
             <nav class="my-navbar">
                 <div class="logo">
-                    <a class="" href="{{ route('dashboard', $user->slug) }}">
+                    <a class="" href="#">
                         <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block " width="20%" class="item-img" src="{{Vite::asset('resources/img/Logo 3.png')}}" alt="">
                            {{-- config('app.name', 'Laravel') --}}
                         <img class="d-block d-md-none" width="15%" class="item-img" src="{{Vite::asset('resources/img/Logo 1.png')}}" alt="">
@@ -75,12 +75,13 @@
                 </nav>
             </div>
         </header>
-
+                
         <div class="app-body container">
-            <aside class=" my-5 sidebar">
-                @include('admin.partials.sidebar')
-            </aside>
-    
+            @if(Auth::user())
+                <aside class=" my-5 sidebar">
+                    @include('admin.partials.sidebar')
+                </aside>
+                @endif
             <main class="flex-grow-1">
                 @yield('content')
             </main>
