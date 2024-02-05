@@ -23,35 +23,23 @@
 <body>
     <div id="app">
 
-
         <header>
             <div class="container">
-                <nav class="my-navbar">
-                    <div class="logo">
-                        <a class="" href="{{ route('dashboard', $user->slug) }}">
-                            <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block " width="20%"
-                                class="item-img" src="{{ Vite::asset('resources/img/Logo 3.png') }}" alt="">
-                            {{-- config('app.name', 'Laravel') --}}
-                            <img class="d-block d-md-none" width="15%" class="item-img"
-                                src="{{ Vite::asset('resources/img/Logo 1.png') }}" alt="">
-                        </a>
-                    </div>
 
-                    {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    </button> --}}
+            <nav class="my-navbar">
+                <div class="logo">
+                    <a class="" href="{{ route('dashboard', $user->slug) }}">
+                        <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block " width="20%" class="item-img" src="{{Vite::asset('resources/img/Logo 3.png')}}" alt="">
+                           {{-- config('app.name', 'Laravel') --}}
+                        <img class="d-block d-md-none" width="15%" class="item-img" src="{{Vite::asset('resources/img/Logo 1.png')}}" alt="">
+                    </a>
+                </div>
+    
+                        <!-- Right Side Of Navbar -->
+                        <ul class="my-nav-list">
+                            <!-- Authentication Links -->
+                            @guest
 
-                    {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
-                    <!-- Left Side Of Navbar -->
-                    {{-- <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
-                            </li>
-                        </ul> --}}
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="my-nav-list">
-                        <!-- Authentication Links -->
-                        @guest
                             <li class="nav-item ">
                                 <a class="nav-link col-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -70,9 +58,8 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @yield('dashboard')
                                     {{-- <a class="dropdown-item" href="{{route('dashboard', $user->slug)}}">{{__('Dashboard')}}</a> --}}
-                                    <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                    {{-- <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a> --}}
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
@@ -89,9 +76,15 @@
             </div>
         </header>
 
-        <main class="">
-            @yield('content')
-        </main>
+        <div class="app-body container">
+            <aside class=" my-5 sidebar">
+                @include('admin.partials.sidebar')
+            </aside>
+    
+            <main class="flex-grow-1">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 

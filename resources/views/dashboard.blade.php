@@ -2,10 +2,7 @@
 
 @section('content')
 <div class="section-dashboard my-5">
-    <div class="container d-flex gap-2">
-        <div class="sidebar">
-            @include('admin.partials.sidebar')
-        </div>
+    <div class="container">
         <div class="dashboard-card-body p-0">
             <div class="card-img">
                 <img class="resturant-img" src="{{Vite::asset('resources/img/dashboard.jpg')}}" alt="">
