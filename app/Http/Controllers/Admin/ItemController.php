@@ -68,10 +68,28 @@ class ItemController extends Controller
     public function store(StoreItemRequest $request)
     {
         $user = Auth::user();
+        $items_slug = Item::pluck('slug')->toArray();
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'string|unique:items,slug|max:255',
+            'price' => 'required|numeric|between:0,999.99',
+            'item_img' => 'required',
+            'description' => 'required|string',
+            'is_visible' => 'boolean',
+        ]);
+
         $data = $request->all();
         $file_path = Storage::put('items_img', $request->item_img);
         $data['item_img'] = $file_path;
         $data['slug'] = Str::slug($data['name']);
+        $i = 1;
+        if (in_array($data['slug'], $items_slug)) {
+            while (in_array($data['slug'] . $i, $items_slug)) {
+                $i++;
+            };
+            $data['slug'] .= $i;
+        };
         $data['is_vegan'] = $request->is_vegan == 'on' ? 1 : 0;
         $data['is_gluten_free'] = $request->is_gluten_free == 'on' ? 1 : 0;
         $data['is_spicy'] = $request->is_spicy == 'on' ? 1 : 0;
@@ -107,7 +125,7 @@ class ItemController extends Controller
         // dd($nextItemId, $previousItemId);
 
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', ['item' => $item], compact('user','previousItemId', 'nextItemId'));
+            return view('admin.items.show', ['item' => $item], compact('user', 'previousItemId', 'nextItemId'));
         } else {
             return view('admin.errors.error');
         }
@@ -116,6 +134,7 @@ class ItemController extends Controller
     public function edit(string $slug, Item $item)
     {
         $user = Auth::user();
+
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
             // dd($item);
             return view('admin.items.edit', compact('item', 'user'));
@@ -128,8 +147,16 @@ class ItemController extends Controller
     {
         // dd($request);
         $user = Auth::user();
+        $items_slug = Item::pluck('slug')->toArray();
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'string|unique:items,slug|max:255',
+            'price' => 'required|numeric|between:0,999.99',
+            // 'item_img' => 'required',
+            'description' => 'required|string',
+            'is_visible' => 'boolean',
+        ]);
         $data = $request->all();
-
         if ($request->hasFile('item_img')) {
 
             $file_path = Storage::put('items_img', $request->item_img);
@@ -139,6 +166,13 @@ class ItemController extends Controller
             }
         }
         $data['slug'] = Str::slug($data['name']);
+        $i = 1;
+        if (in_array($data['slug'], $items_slug)) {
+            while (in_array($data['slug'] . $i, $items_slug)) {
+                $i++;
+            };
+            $data['slug'] .= $i;
+        };
         $data['is_vegan'] = $request->is_vegan == 'on' ? 1 : 0;
         $data['is_gluten_free'] = $request->is_gluten_free == 'on' ? 1 : 0;
         $data['is_spicy'] = $request->is_spicy == 'on' ? 1 : 0;

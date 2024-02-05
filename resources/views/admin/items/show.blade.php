@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('dashboard')
-    <a class="dropdown-item" href="{{route('dashboard', $user->slug)}}">{{__('Dashboard')}}</a>
+    <a class="dropdown-item" href="{{ route('dashboard', $user->slug) }}">{{ __('Dashboard') }}</a>
 @endsection
 
 @section('content')
@@ -15,17 +15,17 @@
                     <h1>{{ $item->name }}</h1>
                     <ul class="ps-0">
                         <li>{{ $item->description }}</li>
-                        <li>&euro; {{ $item->price }}</li>
+                        <li class="price">&euro; {{ $item->price }}</li>
                     </ul>
                     <div class="flags">
-                        <div style="{{ $item->is_spicy ? '' : 'display: none;' }}">Spicy</div>
-                        <div style="{{ $item->is_vegan ? '' : 'display: none;' }}">Vegan</div>
-                        <div style="{{ $item->is_gluten_free ? '' : 'display: none;' }}">Gluten Free</div>
+                        <div style="{{ $item->is_spicy ? '' : 'display: none;' }}">Piccante</div>
+                        <div style="{{ $item->is_vegan ? '' : 'display: none;' }}">Vegano</div>
+                        <div style="{{ $item->is_gluten_free ? '' : 'display: none;' }}">Senza Glutine</div>
                     </div>
                     <div class="buttons">
                         <a href="{{ route('admin.items.edit', ['slug' => Auth::user()->slug, 'item' => $item]) }}"
-                            class="edit-btn">Edit</a>
-                        <button id="myBtn" class="delete-btn">Delete</button>
+                            class="edit-btn">Modifica</a>
+                        <button id="myBtn" class="delete-btn">Elimina</button>
                     </div>
                 </div>
                 <a class="next-item"
@@ -38,7 +38,7 @@
                     <form action="{{ route('admin.items.destroy', $item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-danger btn-lg">Yes</button>
+                        <button class="btn btn-danger btn-lg">Si</button>
                     </form>
                     <button id="noBtn" class="btn btn-primary btn-lg">No</button>
                 </div>

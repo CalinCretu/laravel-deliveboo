@@ -26,6 +26,10 @@ body {
 
 header {
     height: $height-header;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
     background-color: $orange;
     color: $white;
 
@@ -232,7 +236,7 @@ header {
             transition: $transition;
 
             &:hover {
-                background-color: $orange;
+                background-color: $orange-hover;
                 color: $white;
             }
         }

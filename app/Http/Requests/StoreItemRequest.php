@@ -21,8 +21,6 @@ class StoreItemRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 }
