@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
+use App\Models\Order;
 use App\Models\Type;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -18,6 +20,19 @@ use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserController extends Controller
 {
+
+    public function dashboard(string $slug)
+    {
+        $user = Auth::user();
+        if ($slug ==  $user->slug) {
+            $user_id = $user->id;
+            $items = Item::where('user_id', '=', $user_id)->get();
+            $orders = Order::where('user_id', '=', $user_id)->get();
+            return view('dashboard', compact('items', 'user', 'orders'));
+        } else {
+            return view('admin.errors.error');
+        }
+    }
     /**
      * Display the registration view.
      */
@@ -49,22 +64,19 @@ class RegisteredUserController extends Controller
 
         $img_path = Storage::put('restaurants_img', $request->restaurant_img);
 
-        $user = User::create([
-            'business_name' => $request->business_name,
-            'slug' => Str::slug($request->business_name),
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'address' => $request->address,
-            'vat_id' => $request->vat_id,
-            'restaurant_img' => $img_path,
-        ]);
+        $data = $request->all();
+        $data['slug'] = Str::slug($data['business_name']);
+        $data['restaurant_img'] = $img_path;
+        $user = User::create($data);
 
         $user->types()->attach($request->types);
 
         event(new Registered($user));
 
         Auth::login($user);
-
+        // $items = Item::where('user_id', '=', $user->id)->get();
+        // $orders = Order::where('user_id', '=', $user->id)->get();
         return redirect(RouteServiceProvider::HOME);
+        // return redirect()->route('dashboard', ['slug' => $user->slug, $items, $orders]);
     }
 }

@@ -15,6 +15,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <script src="https://kit.fontawesome.com/531bff1fdd.js" crossorigin="anonymous"></script>
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
 </head>
@@ -28,13 +29,13 @@
             <nav class="my-navbar">
                 <div class="logo">
                     <a class="" href="{{ url('/') }}">
-                           Deliveboo
+                        <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block " width="20%" class="item-img" src="{{Vite::asset('resources/img/Logo 3.png')}}" alt="">
                            {{-- config('app.name', 'Laravel') --}}
+                        <img class="d-block d-md-none" width="15%" class="item-img" src="{{Vite::asset('resources/img/Logo 1.png')}}" alt="">
                         </a>
                     </div>
     
                     {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                        <span class="navbar-toggler-icon"></span>
                     </button> --}}
     
                     {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}

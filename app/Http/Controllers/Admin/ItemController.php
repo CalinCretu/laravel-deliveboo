@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -13,6 +14,20 @@ use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
+
+    public function sidebar(string $slug)
+    {
+
+        $user = Auth::user();
+        if ($slug == $user->slug) {
+            $user_id = $user->id;
+            $items = Item::where('user_id', '=', $user_id)->get();
+            $orders = Order::where('user_id', '=', $user_id)->get();
+            return view('admin.partials.sidebar', compact('items', 'user', 'orders'));
+        } else {
+            return view('admin.errors.error');
+        }
+    }
     public function index(string $slug)
     {
         $user = Auth::user();
@@ -52,6 +67,9 @@ class ItemController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
+            return view('admin.items.show', ['item' => $item]);
+
         $items = Item::where('user_id', '=', $user->id)->pluck('id')->toArray();
 
 
@@ -71,6 +89,7 @@ class ItemController extends Controller
 
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
             return view('admin.items.show', ['item' => $item], compact('previousItemId', 'nextItemId'));
+
         } else {
             return view('admin.errors.error');
         }
