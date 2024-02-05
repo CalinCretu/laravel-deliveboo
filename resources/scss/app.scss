@@ -201,7 +201,7 @@ header {
             transition: $transition;
 
             &:hover {
-                background-color: $orange;
+                background-color: $orange-hover;
                 color: $white;
             }
         }
