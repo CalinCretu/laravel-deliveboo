@@ -1,9 +1,13 @@
 @use './variables' as *;
 
 
-.show {
+.items-show {
   font-family: 'Outfit', sans-serif;
   min-height: 100vh;
+  background-image: url(/public/show_img/show-background.jpg);
+  background-size: cover;
+  background-position: center;
+
 
   a {
     text-decoration: none;
@@ -21,9 +25,39 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 
+    .next-item,
+    .previous-item {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1px solid $orange;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 96%;
+      font-size: 80px;
+      color: $orange;
+    }
+
+    .next-item {
+      right: -41px;
+      background-color: rgba(255, 242, 231, 0.9);
+      border-radius: 0 25px 25px 0;
+      border-left: 1px solid transparent;
+    }
+
+    .previous-item {
+      left: -41px;
+      background-color: rgba(255, 242, 231, 0.9);
+      border-radius: 25px 0 0 25px;
+      border-right: 1px solid transparent;
+    }
+
     .cards {
+      position: relative;
       border-radius: 1rem;
-      background-color: $linen;
+      background-color: rgba(255, 242, 231, 0.9);
       border: 1px solid $orange;
       padding: 2rem;
       color: $charcoal;

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Item;
+use App\Models\Order;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,7 +31,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // return redirect()->intended(RouteServiceProvider::HOME);
+        $user = Auth::user();
+        $items = Item::where('user_id', '=', $user->id)->get();
+        $orders = Order::where('user_id', '=', $user->id)->get();
+        return redirect()->route('dashboard', ['slug' => $user->slug, $items, $orders]);
     }
 
     /**

@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Item;
+use App\Models\ItemOrder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderContoller extends Controller
 {
@@ -14,7 +19,11 @@ class OrderContoller extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $orders = Order::where('user_id', '=', $user->id)->orderBy('order_date', 'desc')->get();
+        $orders_amount = Order::where('user_id', '=', $user->id)->orderBy('total_price', 'desc')->get();
+        $items = Item::where('user_id', '=', $user->id)->get();
+        return view('admin.orders.index', compact('orders', 'orders_amount', 'items'));
     }
 
     /**

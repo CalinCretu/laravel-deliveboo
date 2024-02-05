@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="show">
+    <section class="items-show">
         <div class="wrapper">
             <div class="cards">
                 <div class="card image-card col-auto">
@@ -24,6 +24,10 @@
                         <button id="myBtn" class="delete-btn">Delete</button>
                     </div>
                 </div>
+                <a class="next-item"
+                    href="{{ route('admin.items.show', ['slug' => Auth::user()->slug, 'item' => $nextItemId]) }}">&rsaquo;</a>
+                <a class="previous-item"
+                    href="{{ route('admin.items.show', ['slug' => Auth::user()->slug, 'item' => $previousItemId]) }}">&lsaquo;</a>
             </div>
             <div id="bgForm" class="bg-form">
                 <div class="d-flex gap-3 delete-form">
@@ -42,7 +46,7 @@
         const deleteDomEl = document.getElementById("myBtn");
         const formDomEl = document.getElementById("bgForm");
         const noBtnDomEl = document.getElementById("noBtn");
-
+        const anotherItemBtn = document.getElementById("anotherItemBtn");
 
         // console.log(formDomEl);
 

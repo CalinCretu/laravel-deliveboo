@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ItemController;
+use App\Http\Controllers\Admin\OrderContoller;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get(
+    '{slug}/dashboard',
+    [RegisteredUserController::class, 'dashboard']
+)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])->name('admin.')->group(function () {
     // Route::resource('/items', ItemController::class);
@@ -33,6 +35,7 @@ Route::middleware(['auth', 'verified'])->name('admin.')->group(function () {
     Route::get('{slug}/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
+    Route::get('{slug}/orders', [OrderContoller::class, 'index'])->name('orders');
 });
 
 Route::middleware('auth')->group(function () {
