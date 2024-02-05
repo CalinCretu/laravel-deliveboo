@@ -5,7 +5,7 @@
         <div class="wrapper">
             <div class="cards">
                 <div class="card image-card col-auto">
-                    <img src="https://picsum.photos/200/150" class="" alt="...">
+                    <img src="{{ asset( 'storage/' . $item->item_img)}}" class="" alt="">
                 </div>
                 <div class="card description-card col-auto">
                     <h1>{{ $item->name }}</h1>

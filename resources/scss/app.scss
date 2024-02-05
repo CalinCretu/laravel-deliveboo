@@ -1,4 +1,4 @@
-@use './partials/variables' as *;
+@use './partials/variables'as *;
 @use './partials/_show_item';
 @import '~bootstrap/scss/bootstrap';
 
@@ -68,10 +68,11 @@ header {
     height: calc(100vh - $height-header);
     display: grid;
     place-items: center;
+    padding-block: 1rem;
 }
 
 .form-container {
-    width: min(75%, calc(100% - 2rem));
+    width: min(500px, calc(100% - 2rem));
     border-radius: 1rem;
     background-color: $linen;
     border: 1px solid $orange;
@@ -127,6 +128,17 @@ header {
             box-shadow: none;
             border-radius: 0.25rem;
 
+
+
+
+            &:not(:placeholder-shown)+.label-input {
+                top: 0;
+                font-size: 0.875rem;
+                padding-inline: 0.25rem;
+                left: 0.5rem;
+                background-color: $linen;
+            }
+
             &:focus,
             &:valid {
                 border-color: $orange;
@@ -149,7 +161,7 @@ header {
         }
 
         .description {
-            height: 100px;
+            height: 200px;
             resize: none;
 
             &+.label-input {
@@ -217,26 +229,27 @@ header {
     .form-link {
         color: $orange;
     }
-}
 
 
-.bg-form {
-    background-color: rgba(0, 0, 0, 0.586);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: none;
 
-    .delete-form {
+    .bg-form {
+        background-color: rgba(0, 0, 0, 0.586);
         position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: none;
 
-.active {
-    display: block;
+        .delete-form {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .active {
+        display: block;
+    }
 }
