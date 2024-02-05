@@ -62,7 +62,7 @@ class RegisteredUserController extends Controller
 
         // dd($request);
 
-        $img_path = Storage::put('upload', $request->restaurant_img);
+        $img_path = Storage::put('restaurants_img', $request->restaurant_img);
 
         $data = $request->all();
         $data['slug'] = Str::slug($data['business_name']);

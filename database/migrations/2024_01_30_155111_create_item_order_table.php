@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreign('item_id')->references('id')->on('items')->cascadeOnDelete();
             $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
             $table->primary(['item_id', 'order_id']);
-            $table->unsignedSmallInteger('quantity')->default(1);
+            $table->unsignedSmallInteger('quantity');
+            $table->unsignedDecimal('partial_price', 5, 2)->default(1);
         });
     }
 
