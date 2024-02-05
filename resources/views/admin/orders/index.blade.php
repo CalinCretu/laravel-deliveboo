@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container my-4">
-        <div class="row justify-content-between">
-            <div class="col-5">
+        <div class="row justify-content-between row-gap-4">
+            <div class="col-12 col-md-5">
                 <div class="card-orders">
                     <div class="orders-title">I miei ordini</div>
                     <div class="orders-filter d-flex flex-column flex-md-row">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
                 <div class="card-order card-date">
                     @foreach ($orders as $index => $order)
                         <div class="order-info-date inactive">
