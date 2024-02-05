@@ -53,7 +53,21 @@ class ItemController extends Controller
     public function store(StoreItemRequest $request)
     {
         $user = Auth::user();
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:items,slug|max:255',
+            'price' => 'required|numeric|between:0,999.99',
+            'item_img' => 'required',
+            'description' => 'required|string',
+            'is_vegan' => 'boolean',
+            'is_gluten_free' => 'boolean',
+            'is_spicy' => 'boolean',
+            'is_visible' => 'boolean',
+        ]);
+
         $data = $request->all();
+
         $file_path = Storage::put('items_img', $request->item_img);
         $data['item_img'] = $file_path;
         $data['slug'] = Str::slug($data['name']);
@@ -98,6 +112,7 @@ class ItemController extends Controller
     public function edit(string $slug, Item $item)
     {
         $user = Auth::user();
+
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
             // dd($item);
             return view('admin.items.edit', compact('item'));
@@ -109,6 +124,17 @@ class ItemController extends Controller
     public function update(UpdateItemRequest $request, Item $item)
     {
         $user = Auth::user();
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|unique:items,slug|max:255',
+            'price' => 'required|numeric|between:0,999.99',
+            'item_img' => 'required',
+            'description' => 'required|string',
+            'is_vegan' => 'boolean',
+            'is_gluten_free' => 'boolean',
+            'is_spicy' => 'boolean',
+            'is_visible' => 'boolean',
+        ]);
         $data = $request->all();
         $data['slug'] = Str::slug($data['name']);
         $item->update($data);
