@@ -66,6 +66,7 @@ class ItemController extends Controller
     public function show(string $slug, Item $item)
     {
         $user = Auth::user();
+
         // $nextItemId = 0;
         // $previousItemId = 0;
         // if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
