@@ -64,9 +64,11 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
+      max-width: 800px;
 
       @media (max-width: 768px) {
         grid-template-columns: 1fr;
+        max-width: 400px;
       }
 
       .card.image-card {
