@@ -57,6 +57,9 @@ class ItemController extends Controller
         $file_path = Storage::put('items_img', $request->item_img);
         $data['item_img'] = $file_path;
         $data['slug'] = Str::slug($data['name']);
+        $data['is_vegan'] = $request->is_vegan == 'on' ? 1 : 0;
+        $data['is_gluten_free'] = $request->is_gluten_free == 'on' ? 1 : 0;
+        $data['is_spicy'] = $request->is_spicy == 'on' ? 1 : 0;
         $item = Item::create($data);
         $item->user()->associate($user);
         $item->save();
@@ -108,9 +111,22 @@ class ItemController extends Controller
 
     public function update(UpdateItemRequest $request, Item $item)
     {
+        // dd($request);
         $user = Auth::user();
         $data = $request->all();
+
+        if ($request->hasFile('item_img')) {
+
+            $file_path = Storage::put('items_img', $request->item_img);
+            $data['item_img'] = $file_path;
+            if ($item->item_img) {
+                Storage::delete($item->item_img);
+            }
+        }
         $data['slug'] = Str::slug($data['name']);
+        $data['is_vegan'] = $request->is_vegan == 'on' ? 1 : 0;
+        $data['is_gluten_free'] = $request->is_gluten_free == 'on' ? 1 : 0;
+        $data['is_spicy'] = $request->is_spicy == 'on' ? 1 : 0;
         $item->update($data);
         return redirect()->route('admin.items.show', ['slug' => $user->slug, 'item' => $item]);
     }
