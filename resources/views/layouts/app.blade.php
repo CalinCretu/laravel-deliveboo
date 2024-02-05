@@ -28,7 +28,7 @@
             <div class="container">
                 <nav class="my-navbar">
                     <div class="logo">
-                        <a class="" href="{{ url('/') }}">
+                        <a class="" href="{{ route('dashboard', $user->slug) }}">
                             <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block " width="20%"
                                 class="item-img" src="{{ Vite::asset('resources/img/Logo 3.png') }}" alt="">
                             {{-- config('app.name', 'Laravel') --}}
