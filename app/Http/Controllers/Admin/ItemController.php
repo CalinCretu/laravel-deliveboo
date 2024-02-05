@@ -28,6 +28,21 @@ class ItemController extends Controller
             return view('admin.errors.error');
         }
     }
+
+    public function header(string $slug)
+    {
+
+        $user = Auth::user();
+        if ($slug == $user->slug) {
+            $user_id = $user->id;
+            $items = Item::where('user_id', '=', $user_id)->get();
+            $orders = Order::where('user_id', '=', $user_id)->get();
+            return view('admin.layouts.app', compact('items', 'user', 'orders'));
+        } else {
+            return view('admin.errors.error');
+        }
+    }
+
     public function index(string $slug)
     {
         $user = Auth::user();
@@ -92,7 +107,7 @@ class ItemController extends Controller
         // dd($nextItemId, $previousItemId);
 
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', ['item' => $item], compact('previousItemId', 'nextItemId'));
+            return view('admin.items.show', ['item' => $item], compact('user','previousItemId', 'nextItemId'));
         } else {
             return view('admin.errors.error');
         }
@@ -103,7 +118,7 @@ class ItemController extends Controller
         $user = Auth::user();
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
             // dd($item);
-            return view('admin.items.edit', compact('item'));
+            return view('admin.items.edit', compact('item', 'user'));
         } else {
             return view('admin.errors.error');
         }

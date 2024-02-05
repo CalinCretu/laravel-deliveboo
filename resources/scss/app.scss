@@ -126,7 +126,7 @@ header {
             background-color: $linen;
             padding: 0.5rem 1rem;
             width: 100%;
-            height: 100%;
+            // height: 100%;
             color: $charcoal;
             outline: none;
             box-shadow: none;
@@ -233,27 +233,25 @@ header {
     .form-link {
         color: $orange;
     }
+}
 
+.bg-form {
+    background-color: rgba(0, 0, 0, 0.586);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
 
-
-    .bg-form {
-        background-color: rgba(0, 0, 0, 0.586);
+    .delete-form {
         position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        display: none;
-
-        .delete-form {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
+}
 
-    .active {
-        display: block;
-    }
+.active {
+    display: block;
 }

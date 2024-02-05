@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('dashboard')
+    <a class="dropdown-item" href="{{ route('dashboard', $user->slug) }}">{{ __('Dashboard') }}</a>
+@endsection
+
 @section('content')
     <div class="container my-4">
         <div class="row justify-content-between row-gap-4">
@@ -50,10 +54,12 @@
                                     <div>Orario Ordine: {{ date('H:i:s', strtotime($order->order_date)) }}</div>
                                 </div>
                                 <div class="title-or">Info Cliente</div>
-                                <div class="order-line"><span>Indirizzo di consegna </span>{{ $order->client_address }}</div>
+                                <div class="order-line"><span>Indirizzo di consegna </span>{{ $order->client_address }}
+                                </div>
                                 <div class="order-line"><span>Nome Cliente</span> {{ $order->client_name }}</div>
                                 <div class="order-line"><span>Telefono Cliente</span> {{ $order->client_phone }}</div>
-                                <div class="order-line order-section"><span>Email Cliente</span> {{ $order->client_email }}</div>
+                                <div class="order-line order-section"><span>Email Cliente</span> {{ $order->client_email }}
+                                </div>
                                 <div class="title-or">Contenuto Ordine</div>
                                 <div class="order-section order-menu">
                                     @foreach ($order->items as $item)
@@ -63,7 +69,8 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="order-line title-or"><span>Totale Ordine</span>&euro;&nbsp;{{$order->total_price}}</div>
+                                <div class="order-line title-or"><span>Totale
+                                        Ordine</span>&euro;&nbsp;{{ $order->total_price }}</div>
                             </div>
                         </div>
                     @endforeach
@@ -79,10 +86,12 @@
                                     <div>Orario Ordine: {{ date('H:i:s', strtotime($order->order_date)) }}</div>
                                 </div>
                                 <div class="title-or">Info Cliente</div>
-                                <div class="order-line"><span>Indirizzo di consegna </span>{{ $order->client_address }}</div>
+                                <div class="order-line"><span>Indirizzo di consegna </span>{{ $order->client_address }}
+                                </div>
                                 <div class="order-line"><span>Nome Cliente</span> {{ $order->client_name }}</div>
                                 <div class="order-line"><span>Telefono Cliente</span> {{ $order->client_phone }}</div>
-                                <div class="order-line order-section"><span>Email Cliente</span> {{ $order->client_email }}</div>
+                                <div class="order-line order-section"><span>Email Cliente</span> {{ $order->client_email }}
+                                </div>
                                 <div class="title-or">Contenuto Ordine</div>
                                 <div class="order-section order-menu">
                                     @foreach ($order->items as $item)
@@ -92,7 +101,8 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="order-line title-or"><span>Totale Ordine</span>&euro;&nbsp;{{$order->total_price}}</div>
+                                <div class="order-line title-or"><span>Totale
+                                        Ordine</span>&euro;&nbsp;{{ $order->total_price }}</div>
                             </div>
                         </div>
                     @endforeach
@@ -114,7 +124,7 @@
         const cardDateDomEl = document.querySelector(".card-date");
         const cardPriceDomEl = document.querySelector(".card-price");
         const orderContentDomEl = document.querySelector(".orders-content");
-        
+
         dateOrdDomEl[0].classList.add('selected');
         ordersDateDomEl[0].classList.remove('inactive');
         dateFilterDomEl.classList.add('filtered')
@@ -141,7 +151,10 @@
 
         dateFilterDomEl.addEventListener("click", function() {
             if (dateFilter == false) {
-                orderContentDomEl.scroll({top:0,behavior:'smooth'});
+                orderContentDomEl.scroll({
+                    top: 0,
+                    behavior: 'smooth'
+                });
                 ordersPriceDomEl[currentOrder].classList.add('inactive')
                 priceOrdDomEl[currentOrder].classList.remove('selected')
                 currentOrder = 0;
@@ -164,7 +177,10 @@
 
         priceFilterDomEl.addEventListener("click", function() {
             if (dateFilter) {
-                orderContentDomEl.scroll({top:0,behavior:'smooth'});
+                orderContentDomEl.scroll({
+                    top: 0,
+                    behavior: 'smooth'
+                });
                 ordersDateDomEl[currentOrder].classList.add('inactive')
                 dateOrdDomEl[currentOrder].classList.remove('selected')
                 currentOrder = 0;

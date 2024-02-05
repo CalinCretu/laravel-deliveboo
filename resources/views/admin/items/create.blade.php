@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('dashboard')
+    <a class="dropdown-item" href="{{route('dashboard', $user->slug)}}">{{__('Dashboard')}}</a>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="wrapper">

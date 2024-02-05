@@ -77,6 +77,6 @@ class RegisteredUserController extends Controller
         $items = Item::where('user_id', '=', $user->id)->get();
         $orders = Order::where('user_id', '=', $user->id)->get();
         // return redirect(RouteServiceProvider::HOME);
-        return redirect()->route('dashboard', ['slug' => $user->slug, $items, $orders]);
+        return redirect()->route('dashboard', ['slug' => $user->slug, 'items' => $items, 'orders' => $orders]);
     }
 }
