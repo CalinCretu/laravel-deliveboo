@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="btn-sidebar text-lg-start">
-            <a href="#">
+            <a href="{{route('admin.orders', $user->slug)}}">
                 <span class="sidebar-icon px-lg-2"><i class="fa-solid fa-clipboard-list"></i></span>
                 <p class="d-none d-lg-inline-block mb-0">Ordini</p>
             </a>
