@@ -23,28 +23,16 @@
 <body>
     <div id="app">
 
-
         <header>
             <div class="container">
             <nav class="my-navbar">
                 <div class="logo">
-                    <a class="" href="{{ url('/') }}">
+                    <a class="" href="{{ route('dashboard', $user->slug) }}">
                         <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block " width="20%" class="item-img" src="{{Vite::asset('resources/img/Logo 3.png')}}" alt="">
                            {{-- config('app.name', 'Laravel') --}}
                         <img class="d-block d-md-none" width="15%" class="item-img" src="{{Vite::asset('resources/img/Logo 1.png')}}" alt="">
-                        </a>
-                    </div>
-    
-                    {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    </button> --}}
-    
-                    {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> --}}
-                        <!-- Left Side Of Navbar -->
-                        {{-- <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
-                            </li>
-                        </ul> --}}
+                    </a>
+                </div>
     
                         <!-- Right Side Of Navbar -->
                         <ul class="my-nav-list">
@@ -67,7 +55,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     @yield('dashboard')
                                     {{-- <a class="dropdown-item" href="{{route('dashboard', $user->slug)}}">{{__('Dashboard')}}</a> --}}
-                                    <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a>
+                                    {{-- <a class="dropdown-item" href="{{ url('profile') }}">{{__('Profile')}}</a> --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -85,9 +73,15 @@
             </div>
         </header>
 
-        <main class="">
-            @yield('content')
-        </main>
+        <div class="app-body container">
+            <aside class=" my-5 sidebar">
+                @include('admin.partials.sidebar')
+            </aside>
+    
+            <main class="flex-grow-1">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 

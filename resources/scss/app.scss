@@ -1,7 +1,7 @@
-@use './partials/variables'as *;
+@use './partials/variables' as *;
 
 
-@use './partials/orders'as *;
+@use './partials/orders' as *;
 
 @use './partials/_show_item';
 
@@ -73,6 +73,37 @@ header {
     display: grid;
     place-items: center;
     padding-block: 1rem;
+}
+
+
+
+.app-body {
+    display: flex;
+
+    .sidebar {
+        width: 50px;
+        align-items: stretch;
+    }
+
+    .app-content {
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .btn-sidebar {
+        /* width: 50px; */
+        /* border: 1px solid salmon; */
+        color: black;
+        border-radius: 10px;
+        padding: 10px 5px;
+        text-align: center;
+    }
+
+
+    .btn-sidebar:hover {
+        background-color: $orange;
+        color: white;
+    }
 }
 
 .form-container {
@@ -254,4 +285,16 @@ header {
 
 .active {
     display: block;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+    .app-body {
+
+        .sidebar {
+            width: 200px;
+            align-items: stretch;
+        }
+    }
 }
