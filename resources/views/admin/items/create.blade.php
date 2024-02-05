@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('dashboard')
+    <a class="dropdown-item" href="{{route('dashboard', $user->slug)}}">{{__('Dashboard')}}</a>
+@endsection
+
 @section('content')
     <div class="container">
         <div class="wrapper">
@@ -13,6 +17,7 @@
                     <div class="input">
                         <input type="text" class="form-control" name="name" id="name" autocomplete="off"
                             value="{{ old('name') }}" required>
+
                         <label for="name" class="label-input">Nome</label>
                     </div>
                     <div class="input">
@@ -23,6 +28,7 @@
                     <div class="input">
                         <input type="number" class="form-control" name="price" id="price" autocomplete="off"
                             value="{{ old('price') }}" required>
+
                         <label for="price" class="label-input">Prezzo</label>
                     </div>
                     <div class="input d-flex">
@@ -31,16 +37,15 @@
                     </div>
                     <div class="checkbox-wrapper">
                         <div class="checkbox-input">
-                            <input class="my-checkbox" type="checkbox" name="is_vegan" id="is_vegan" value="1">
+                            <input class="my-checkbox" type="checkbox" name="is_vegan" id="is_vegan">
                             <label for="is_vegan">Vegano</label>
                         </div>
                         <div class="checkbox-input">
-                            <input class="my-checkbox" type="checkbox" name="is_gluten_free" id="is_gluten_free"
-                                value="1">
+                            <input class="my-checkbox" type="checkbox" name="is_gluten_free" id="is_gluten_free" >
                             <label for="is_gluten_free">Senza glutine</label>
                         </div>
                         <div class="checkbox-input">
-                            <input class="my-checkbox" type="checkbox" name="is_spicy" id="is_spicy" value="1">
+                            <input class="my-checkbox" type="checkbox" name="is_spicy" id="is_spicy">
                             <label for="is_spicy">Piccante</label>
                         </div>
                     </div>

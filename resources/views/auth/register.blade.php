@@ -14,7 +14,7 @@
     
                             <div class="input">
                                
-                                <input id="business_name" type="text" class="form-control @error('business_name') is-invalid @enderror" name="business_name" value="{{ old('business_name') }}" required autocomplete="business_name" autofocus>
+                                <input id="business_name" type="text" class="form-control @error('business_name') is-invalid @enderror" name="business_name" value="{{ old('business_name') }}" required autocomplete="business_name" autofocus placeholder="&nbsp">
 
                                 @error('business_name')
                                 <span class="invalid-feedback" role="alert">
@@ -28,7 +28,7 @@
     
                             <div class="input">
                                 
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="off" placeholder="&nbsp">
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
     
                             <div class="input">
                                 
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="&nbsp">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -56,7 +56,7 @@
     
                             <div class="input">
                                 
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="&nbsp">
 
                                 <label for="password-confirm" class="label-input">{{ __('Conferma Password') }}</label>
                                 
@@ -64,7 +64,7 @@
     
                             <div class="input">
                             
-                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" placeholder="&nbsp">
 
                                 @error('address')
                                 <span class="invalid-feedback" role="alert">
@@ -78,7 +78,7 @@
     
                             <div class="input">
                                 
-                                <input id="vat_id" type="text" class="form-control @error('address') is-invalid @enderror" name="vat_id" value="{{ old('vat_id') }}" required autocomplete="vat_id">
+                                <input id="vat_id" type="text" class="form-control @error('address') is-invalid @enderror" name="vat_id" value="{{ old('vat_id') }}" required autocomplete="vat_id" placeholder="&nbsp">
 
                                 @error('vat_id')
                                 <span class="invalid-feedback" role="alert">
@@ -121,7 +121,7 @@
                               <li>{{ $error }}</li>
                           @endforeach
                       </ul>
-                  {{-- </div> --}}
+                  </div>
               @endif
                     </div>
                 </div>

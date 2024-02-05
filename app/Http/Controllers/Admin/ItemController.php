@@ -28,6 +28,21 @@ class ItemController extends Controller
             return view('admin.errors.error');
         }
     }
+
+    public function header(string $slug)
+    {
+
+        $user = Auth::user();
+        if ($slug == $user->slug) {
+            $user_id = $user->id;
+            $items = Item::where('user_id', '=', $user_id)->get();
+            $orders = Order::where('user_id', '=', $user_id)->get();
+            return view('admin.layouts.app', compact('items', 'user', 'orders'));
+        } else {
+            return view('admin.errors.error');
+        }
+    }
+
     public function index(string $slug)
     {
         $user = Auth::user();
@@ -71,6 +86,9 @@ class ItemController extends Controller
         $file_path = Storage::put('items_img', $request->item_img);
         $data['item_img'] = $file_path;
         $data['slug'] = Str::slug($data['name']);
+        $data['is_vegan'] = $request->is_vegan == 'on' ? 1 : 0;
+        $data['is_gluten_free'] = $request->is_gluten_free == 'on' ? 1 : 0;
+        $data['is_spicy'] = $request->is_spicy == 'on' ? 1 : 0;
         $item = Item::create($data);
         $item->user()->associate($user);
         $item->save();
@@ -103,7 +121,7 @@ class ItemController extends Controller
         // dd($nextItemId, $previousItemId);
 
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', ['item' => $item], compact('previousItemId', 'nextItemId'));
+            return view('admin.items.show', ['item' => $item], compact('user','previousItemId', 'nextItemId'));
         } else {
             return view('admin.errors.error');
         }
@@ -115,7 +133,7 @@ class ItemController extends Controller
 
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
             // dd($item);
-            return view('admin.items.edit', compact('item'));
+            return view('admin.items.edit', compact('item', 'user'));
         } else {
             return view('admin.errors.error');
         }
@@ -123,6 +141,7 @@ class ItemController extends Controller
 
     public function update(UpdateItemRequest $request, Item $item)
     {
+        // dd($request);
         $user = Auth::user();
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -136,7 +155,19 @@ class ItemController extends Controller
             'is_visible' => 'boolean',
         ]);
         $data = $request->all();
+
+        if ($request->hasFile('item_img')) {
+
+            $file_path = Storage::put('items_img', $request->item_img);
+            $data['item_img'] = $file_path;
+            if ($item->item_img) {
+                Storage::delete($item->item_img);
+            }
+        }
         $data['slug'] = Str::slug($data['name']);
+        $data['is_vegan'] = $request->is_vegan == 'on' ? 1 : 0;
+        $data['is_gluten_free'] = $request->is_gluten_free == 'on' ? 1 : 0;
+        $data['is_spicy'] = $request->is_spicy == 'on' ? 1 : 0;
         $item->update($data);
         return redirect()->route('admin.items.show', ['slug' => $user->slug, 'item' => $item]);
     }

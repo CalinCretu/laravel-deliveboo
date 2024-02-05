@@ -23,7 +23,7 @@ class OrderContoller extends Controller
         $orders = Order::where('user_id', '=', $user->id)->orderBy('order_date', 'desc')->get();
         $orders_amount = Order::where('user_id', '=', $user->id)->orderBy('total_price', 'desc')->get();
         $items = Item::where('user_id', '=', $user->id)->get();
-        return view('admin.orders.index', compact('orders', 'orders_amount', 'items'));
+        return view('admin.orders.index', compact('user','orders', 'orders_amount', 'items'));
     }
 
     /**
