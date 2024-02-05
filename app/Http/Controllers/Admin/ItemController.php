@@ -66,12 +66,12 @@ class ItemController extends Controller
     public function show(string $slug, Item $item)
     {
         $user = Auth::user();
-
-        if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', ['item' => $item]);
-
+        // $nextItemId = 0;
+        // $previousItemId = 0;
+        // if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
+        //     return view('admin.items.show', ['item' => $item]);
+        // }
         $items = Item::where('user_id', '=', $user->id)->pluck('id')->toArray();
-
 
         $currentItemIndex = array_search($item->id, $items);
         if ($currentItemIndex == 0) {
@@ -89,7 +89,6 @@ class ItemController extends Controller
 
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
             return view('admin.items.show', ['item' => $item], compact('previousItemId', 'nextItemId'));
-
         } else {
             return view('admin.errors.error');
         }

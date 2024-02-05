@@ -39,8 +39,6 @@
                     <button id="noBtn" class="btn btn-primary btn-lg">No</button>
                 </div>
             </div>
-            {{-- <button id="anotherItemBtn" class="btn btn-primary btn-lg">Go to Another Item</button> --}}
-
         </div>
     </section>
 
@@ -49,7 +47,6 @@
         const formDomEl = document.getElementById("bgForm");
         const noBtnDomEl = document.getElementById("noBtn");
         const anotherItemBtn = document.getElementById("anotherItemBtn");
-
 
         // console.log(formDomEl);
 
