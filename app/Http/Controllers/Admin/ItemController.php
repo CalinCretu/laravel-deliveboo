@@ -6,12 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ItemController extends Controller
 {
+
+    public function sidebar(string $slug)
+    {
+
+        $user = Auth::user();
+        if ($slug == $user->slug) {
+            $user_id = $user->id;
+            $items = Item::where('user_id', '=', $user_id)->get();
+            $orders = Order::where('user_id', '=', $user_id)->get();
+            return view('admin.partials.sidebar', compact('items', 'user', 'orders'));
+        } else {
+            return view('admin.errors.error');
+        }
+    }
     public function index(string $slug)
     {
         $user = Auth::user();
@@ -19,26 +34,24 @@ class ItemController extends Controller
             $user_id = $user->id;
             $items = Item::where('user_id', '=', $user_id)->get();
             return view('admin.items.index', compact('items'));
-        }
-        else {
+        } else {
             return view('admin.errors.error');
         }
     }
 
     public function create(string $slug)
     {
-        $user= Auth::user();
+        $user = Auth::user();
         if ($slug ==  $user->slug) {
             return view('admin.items.create', compact('user'));
-        }
-        else {
+        } else {
             return view('admin.errors.error');
         }
     }
 
     public function store(StoreItemRequest $request)
     {
-        $user= Auth::user();
+        $user = Auth::user();
         $data = $request->all();
         $data['slug'] = Str::slug($data['name']);
         $item = Item::create($data);
@@ -49,30 +62,28 @@ class ItemController extends Controller
 
     public function show(string $slug, Item $item)
     {
-        $user= Auth::user();
+        $user = Auth::user();
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-            return view('admin.items.show', ['item'=>$item]);
-        }
-        else {
+            return view('admin.items.show', ['item' => $item]);
+        } else {
             return view('admin.errors.error');
         }
     }
 
     public function edit(string $slug, Item $item)
     {
-        $user= Auth::user();
+        $user = Auth::user();
         if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
             // dd($item);
             return view('admin.items.edit', compact('item'));
-        }
-        else {
+        } else {
             return view('admin.errors.error');
         }
     }
 
     public function update(UpdateItemRequest $request, Item $item)
     {
-        $user= Auth::user();
+        $user = Auth::user();
         $data = $request->all();
         $data['slug'] = Str::slug($data['name']);
         $item->update($data);
