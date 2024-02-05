@@ -3,9 +3,6 @@
 
 .items-show {
   font-family: 'Outfit', sans-serif;
-  background-image: url(/public/show_img/show-background.jpg);
-  background-size: cover;
-  background-position: center;
 
   a {
     text-decoration: none;
@@ -39,9 +36,16 @@
 
     .next-item {
       right: -41px;
-      background-color: rgba(255, 242, 231, 0.9);
+      background-color: $linen;
       border-radius: 0 25px 25px 0;
       border-left: 1px solid transparent;
+      box-shadow: 5px 0px 5px 3px $orange-hover;
+
+      &:hover {
+        box-shadow: 5px 0px 5px 6px $orange;
+        transition: $transition;
+      }
+
     }
 
     .previous-item {
@@ -49,6 +53,12 @@
       background-color: rgba(255, 242, 231, 0.9);
       border-radius: 25px 0 0 25px;
       border-right: 1px solid transparent;
+      box-shadow: -5px 0px 5px 3px $orange-hover;
+
+      &:hover {
+        box-shadow: -5px 0px 5px 6px $orange;
+        transition: $transition;
+      }
     }
 
     .cards {
@@ -62,6 +72,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       max-width: 800px;
+      box-shadow: 5px 0px 5px 5px $orange-hover;
 
       @media (max-width: 768px) {
         grid-template-columns: 1fr;
