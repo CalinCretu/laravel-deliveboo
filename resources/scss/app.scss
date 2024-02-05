@@ -1,7 +1,7 @@
-@use './partials/variables'as *;
+@use './partials/variables' as *;
 
 
-@use './partials/orders'as *;
+@use './partials/orders' as *;
 
 @use './partials/_show_item';
 
@@ -26,6 +26,10 @@ body {
 
 header {
     height: $height-header;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
     background-color: $orange;
     color: $white;
 

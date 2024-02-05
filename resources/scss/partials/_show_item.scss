@@ -3,11 +3,9 @@
 
 .items-show {
   font-family: 'Outfit', sans-serif;
-  min-height: 100vh;
   background-image: url(/public/show_img/show-background.jpg);
   background-size: cover;
   background-position: center;
-
 
   a {
     text-decoration: none;
@@ -23,7 +21,6 @@
     height: calc(100vh - $height-header);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
 
     .next-item,
     .previous-item {
@@ -96,12 +93,27 @@
           font-size: 1rem;
         }
 
-        .flags>* {
-          display: inline-block;
-          font-size: 1.2rem;
+        .price {
           font-weight: bold;
-          padding: 5px 8px;
-          margin-right: 5px;
+          border: 2px solid green;
+          background-color: white;
+          width: 80px;
+          text-align: center;
+          border-radius: 25px;
+        }
+
+        .flags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.8rem;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .flags>* {
+          white-space: nowrap;
+          font-size: 1rem;
+          padding: 0.25rem 1rem;
           border-radius: 25px;
           border: 1px solid $orange;
           background-color: $orange;
@@ -121,15 +133,14 @@
 
           .edit-btn,
           .delete-btn {
-            padding: 5px 15px;
+            padding: 0.25rem 1rem;
             border: 2px solid $orange;
             border-radius: 25px;
             background-color: $orange;
             color: white;
             font-size: 1.2rem;
-            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.1s ease;
+            transition: $transition;
 
             &:hover {
               background-color: rgb(252, 128, 25, 25%);
@@ -150,6 +161,7 @@
           .edit-btn:active,
           .delete-btn:active {
             transform: scale(0.9);
+            transform: $transition_short;
           }
         }
       }
