@@ -57,15 +57,21 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['required', 'string',],
             'vat_id' => ['required', 'string', 'min:13', 'max:13'],
-            'restaurant_img' => 'nullable|max:2048|file'
+            'restaurant_img' => 'required|max:2048|file'
         ]);
 
-        // dd($request);
-
+        $users_slug = User::pluck('slug')->toArray();
         $img_path = Storage::put('restaurants_img', $request->restaurant_img);
 
         $data = $request->all();
         $data['slug'] = Str::slug($data['business_name']);
+        $i = 1;
+        if (in_array($data['slug'], $users_slug)) {
+            while (in_array($data['slug'] . $i, $users_slug)) {
+                $i++;
+            };
+            $data['slug'] .= $i;
+        };
         $data['restaurant_img'] = $img_path;
         $user = User::create($data);
 
