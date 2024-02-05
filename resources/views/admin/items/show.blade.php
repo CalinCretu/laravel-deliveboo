@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
+@section('dashboard')
+    <a class="dropdown-item" href="{{route('dashboard', $user->slug)}}">{{__('Dashboard')}}</a>
+@endsection
+
 @section('content')
     <section class="items-show">
         <div class="wrapper">
             <div class="cards">
                 <div class="card image-card col-auto">
-                    <img src="{{ asset( 'storage/' . $item->item_img)}}" class="" alt="">
+                    <img src="{{ asset('storage/' . $item->item_img) }}" class="" alt="">
                 </div>
                 <div class="card description-card col-auto">
                     <h1>{{ $item->name }}</h1>
