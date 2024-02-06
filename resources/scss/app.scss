@@ -1,7 +1,7 @@
-@use './partials/variables' as *;
+@use './partials/variables'as *;
 
 
-@use './partials/orders' as *;
+@use './partials/orders'as *;
 
 @use './partials/_show_item';
 @use './partials/index_item';
@@ -38,12 +38,15 @@ header {
     left: 0;
     background-color: $orange;
     color: $white;
+    z-index: 1000;
 
     .container {
         height: 100%;
     }
 
 }
+
+
 
 .my-navbar {
     display: flex;
@@ -310,7 +313,12 @@ header {
 
     .app-body {
 
+
+
         .sidebar {
+            position: sticky;
+            left: 0;
+            top: 0;
             width: 200px;
             align-items: stretch;
         }

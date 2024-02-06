@@ -49,7 +49,7 @@ class ItemController extends Controller
         if ($slug ==  $user->slug) {
             $user_id = $user->id;
             $items = Item::where('user_id', '=', $user_id)->get();
-            return view('admin.items.index', compact('items'));
+            return view('admin.items.index', compact('items', 'user'));
         } else {
             return view('admin.errors.error');
         }

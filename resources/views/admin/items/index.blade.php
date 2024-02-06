@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('dashboard')
+    <a class="dropdown-item" href="{{ route('dashboard', $user->slug) }}">{{ __('Dashboard') }}</a>
+@endsection
+
 @section('content')
     {{-- <section class="main-section">
         <div class="container my-3">
@@ -46,18 +50,14 @@
 
             @foreach ($items as $item)
                 
-            <div class="card-item">
-               
-
-												
-											
-                <figure class="card-image"><img src="{{ asset('storage/' . $item->item_img) }}" alt="image"></figure>
-                <div class="body-card">
-                    <h4 class="body-card-title">{{$item->name}}</h4>
-                    <h3 class="body-card-price">&euro; {{$item->price}}</h3>
-                    <a class="btn btn-primary orange" href="{{ route('admin.items.show', ['slug'=>Auth::user()->slug, 'item'=>$item])}}">Dettagli</a>
+                <div class="card-item">							
+                    <figure class="card-image"><img src="{{ asset('storage/' . $item->item_img) }}" alt="image"></figure>
+                    <div class="body-card">
+                        <h4 class="body-card-title">{{$item->name}}</h4>
+                        <h3 class="body-card-price">&euro; {{$item->price}}</h3>
+                        <a class="btn btn-primary orange" href="{{ route('admin.items.show', ['slug'=>Auth::user()->slug, 'item'=>$item])}}">Dettagli</a>
+                    </div>
                 </div>
-            </div>
             @endforeach
             
             
