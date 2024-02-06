@@ -4,6 +4,7 @@
 @use './partials/orders' as *;
 
 @use './partials/_show_item';
+@use './partials/index_item';
 
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
@@ -17,6 +18,11 @@ ul,
 ol {
     list-style: none;
 
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 body {
@@ -252,13 +258,7 @@ header {
         }
     }
 
-    .btn.orange {
-        background-color: $orange;
-        border-color: $orange;
-        padding: 0.5rem 1rem;
-        border-radius: 5rem;
-        width: 100%;
-    }
+
 
     .info {
         text-align: center;
@@ -267,6 +267,20 @@ header {
 
     .form-link {
         color: $orange;
+    }
+}
+
+.btn.orange {
+    background-color: $orange;
+    border-color: $orange;
+    padding: 0.5rem 1rem;
+    border-radius: 5rem;
+    width: 100%;
+
+    &:hover {
+        background-color: transparent;
+        color: $orange;
+        border-color: currentColor;
     }
 }
 

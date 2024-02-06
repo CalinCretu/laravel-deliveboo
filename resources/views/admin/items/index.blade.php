@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite(['resources/js/app.js'])
-</head>
-<body>
-    <section class="main-section">
+@extends('layouts.app')
+
+@section('content')
+    {{-- <section class="main-section">
         <div class="container my-3">
             <div class="row gap-2">
                 <h2 class="text-center">
@@ -46,6 +39,29 @@
                 </table>
             </div>
         </div>
-    </section>
-</body>
-</html>
+    </section> --}}
+
+    <div class="container">
+        <div class="wrapper-card-item">
+
+            @foreach ($items as $item)
+                
+            <div class="card-item">
+               
+
+												
+											
+                <figure class="card-image"><img src="{{ asset('storage/' . $item->item_img) }}" alt="image"></figure>
+                <div class="body-card">
+                    <h4 class="body-card-title">{{$item->name}}</h4>
+                    <h3 class="body-card-price">&euro; {{$item->price}}</h3>
+                    <a class="btn btn-primary orange" href="{{ route('admin.items.show', ['slug'=>Auth::user()->slug, 'item'=>$item])}}">Dettagli</a>
+                </div>
+            </div>
+            @endforeach
+            
+            
+        </div>
+    </div>
+    @endsection
+
