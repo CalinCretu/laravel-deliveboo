@@ -29,6 +29,20 @@ class ItemController extends Controller
         }
     }
 
+    public function statistics(string $slug)
+    {
+
+        $user = Auth::user();
+        if ($slug == $user->slug) {
+            $user_id = $user->id;
+            $items = Item::where('user_id', '=', $user_id)->get();
+            $orders = Order::where('user_id', '=', $user_id)->get();
+            return view('admin.items.statistics', compact('items', 'user', 'orders'));
+        } else {
+            return view('admin.errors.error');
+        }
+    }
+
     public function header(string $slug)
     {
 
