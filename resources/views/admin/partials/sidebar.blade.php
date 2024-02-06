@@ -19,7 +19,7 @@
             </a>
         </li>
         <li class="btn-sidebar text-sm-start">
-            <a href="#">
+            <a href="{{route('admin.items.statistics', $user->slug)}}">
                 <span class="sidebar-icon px-sm-2"><i class="fa-solid fa-square-poll-vertical"></i></span>
                 <p class="d-none d-sm-inline-block mb-0">Statistiche</p>
             </a>
