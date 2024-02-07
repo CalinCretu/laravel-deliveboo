@@ -21,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{user:slug}', [UserController::class, 'getItemsBySlug']);
+Route::post('/users', [UserController::class, 'getUsersByName']);
+Route::get('/items/{user:slug}', [UserController::class, 'getItemsBySlug']);
 // Route::get('/items/{user:slug}', [ItemController::class, 'index']);
