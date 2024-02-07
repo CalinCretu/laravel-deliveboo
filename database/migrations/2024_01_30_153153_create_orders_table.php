@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->dateTime('order_date');
             $table->string('client_address');
-            $table->unsignedDecimal('total_price', 5, 2);
+            $table->unsignedDecimal('total_price', $precision = 8, $scale = 2);
             $table->text('details')->nullable();
             $table->string('client_phone');
             $table->string('client_email');

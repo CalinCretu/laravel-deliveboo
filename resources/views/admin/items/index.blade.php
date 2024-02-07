@@ -5,63 +5,60 @@
 @endsection
 
 @section('content')
-    {{-- <section class="main-section">
-        <div class="container my-3">
-            <div class="row gap-2">
-                <h2 class="text-center">
-                    Items
-                </h2>
-                <table class="table table-primary table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Image</th>
-                            <th>
-                                <a class="btn btn-success" href="{{ route('admin.items.create', ['slug'=>Auth::user()->slug]) }}">New Items</a>
-                            </th>
-                        </tr>
-                    </thead>
-                    @forelse ($items as $item)
-                        <tbody>
-                            <tr class="align-middle">
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->description }}</td>
-                                <td>{{ $item->price }}</td>
-                                <td>{{ $item->image }}</td>
-                                <td class="d-flex align-items-center gap-2">
-                                    <a class="btn btn-primary" href="{{ route('admin.items.show', ['slug'=>Auth::user()->slug, 'item'=>$item])}}">More
-                                        Info</a>
-                                    <a href="{{ route('admin.items.edit', ['slug'=>Auth::user()->slug, 'item'=>$item]) }}" class="btn btn-warning">Edit</a>
-                                </td>
-                            </tr>
-                        @empty
-                            non ci sono risultati
-                    @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section> --}}
-
-    <div class="container">
+    <div class="container index-container">
         <div class="wrapper-card-item">
-
+            <div class="card-item green-item">
+                <figure class="card-image"><img src="{{ asset('storage/default_img/pasta-pesto.jpg') }}" alt="image"></figure>
+                <div class="body-card">
+                    <a class="btn btn-primary create"
+                            href="{{ route('admin.items.create', ['slug' => Auth::user()->slug]) }}">Aggiungi Piatto</a>
+                </div>
+            </div>
             @foreach ($items as $item)
-                
-                <div class="card-item">							
+                <div class="card-item orange-item">
                     <figure class="card-image"><img src="{{ asset('storage/' . $item->item_img) }}" alt="image"></figure>
                     <div class="body-card">
-                        <h4 class="body-card-title">{{$item->name}}</h4>
-                        <h3 class="body-card-price">&euro; {{$item->price}}</h3>
-                        <a class="btn btn-primary orange" href="{{ route('admin.items.show', ['slug'=>Auth::user()->slug, 'item'=>$item])}}">Dettagli</a>
+                        <h4 class="body-card-title">{{ $item->name }}</h4>
+                        <h3 class="body-card-price">&euro; {{ $item->price }}</h3>
+                        <a class="btn btn-primary orange"
+                            href="{{ route('admin.items.show', ['slug' => Auth::user()->slug, 'item' => $item]) }}">Dettagli</a>
+                    </div>
+                    <div class="buttons">
+                        <a href="{{ route('admin.items.edit', ['slug' => Auth::user()->slug, 'item' => $item]) }}"
+                            class="edit-btn">Modifica</a>
+                        <button class="delete-btn">Elimina</button>
+                    </div>
+                </div>
+                <div id="bgForm" class="bg-form">
+                    <div class="d-flex align-items-center gap-3 delete-form">
+                        <h4 class="text-light">Confermi di voler eliminare {{ $item->name }}?</h4>
+                        <form action="{{ route('admin.items.destroy', ['item' => $item]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-lg">Si</button>
+                        </form>
+                        <button class="no-btn btn btn-primary btn-lg">No</button>
                     </div>
                 </div>
             @endforeach
-            
-            
         </div>
     </div>
-    @endsection
 
+    <script>
+        const deleteDomEl = document.querySelectorAll(".delete-btn");
+        const formDomEl = document.querySelectorAll(".bg-form");
+        const noBtnDomEl = document.querySelectorAll(".no-btn");
+
+        for (let i = 0; i < deleteDomEl.length; i++) {
+            deleteDomEl[i].addEventListener('click', function() {
+                // console.log('delete');
+                formDomEl[i].classList.add("active")
+            })
+        }
+        for (let i = 0; i < deleteDomEl.length; i++) {
+            noBtnDomEl[i].addEventListener('click', function() {
+                formDomEl[i].classList.remove("active");
+            })
+        }
+    </script>
+@endsection

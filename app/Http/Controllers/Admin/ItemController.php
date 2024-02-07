@@ -87,7 +87,7 @@ class ItemController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'string|unique:items,slug|max:255',
-            'price' => 'required|numeric|between:0,999.99',
+            'price' => 'required|numeric|min:0',
             'item_img' => 'required',
             'description' => 'required|string',
             'is_visible' => 'boolean',
@@ -116,16 +116,12 @@ class ItemController extends Controller
     public function show(string $slug, Item $item)
     {
         $user = Auth::user();
-
-        // $nextItemId = 0;
-        // $previousItemId = 0;
-        // if ($user->id ==  $item->user->id && $slug ==  $user->slug) {
-        //     return view('admin.items.show', ['item' => $item]);
-        // }
         $items = Item::where('user_id', '=', $user->id)->pluck('id')->toArray();
-
         $currentItemIndex = array_search($item->id, $items);
-        if ($currentItemIndex == 0) {
+        if(count($items) == 1) {
+            $nextItemId = $items[$currentItemIndex];
+            $previousItemId = $items[$currentItemIndex];
+        }else if ($currentItemIndex == 0) {
             $nextItemId = $items[$currentItemIndex + 1];
             $previousItemId = $items[count($items) - 1];
         } elseif ($currentItemIndex == count($items) - 1) {
@@ -194,9 +190,35 @@ class ItemController extends Controller
         return redirect()->route('admin.items.show', ['slug' => $user->slug, 'item' => $item]);
     }
 
-    public function destroy(Item $item)
+    public function restore($item_id)
     {
-        $item->delete();
+        $post = Item::withTrashed()->where('id', $item_id)->first();
+
+        if (!isset($item)) {
+            abort(404);
+        }
+
+        if ($item->trashed()) {
+            $item->restore();
+        }
+
+        return back();
+    }
+
+
+    public function destroy($item_id)
+    {
+        $item = Item::withTrashed()->where('id', $item_id)->first();
+        // $item->delete();
+        if (!isset($item)) {
+            abort(404);
+        }
+        $item->orders()->sync([]);
+        if ($item->trashed()) {
+            $item->forceDelete();
+        } else {
+            $item->delete();
+        }
         return redirect()->route('admin.items.index', ['slug' => Auth::user()->slug]);
     }
 }

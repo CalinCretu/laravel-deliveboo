@@ -147,6 +147,7 @@ header {
         }
 
         .label-input-file {
+            cursor: pointer;
             display: block;
             background-color: $orange;
             color: $white;
@@ -154,11 +155,14 @@ header {
             text-wrap: nowrap;
             padding: 0.5rem 1rem;
             border-radius: 5rem;
+            &:active {
+                transform: scale(0.9);
+            }
         }
 
         .input-file {
-            width: 0.1px;
-            height: 0.1px;
+            position: absolute;
+            z-index: -99;
             padding: 0;
             border: none;
         }
@@ -225,6 +229,10 @@ header {
         }
 
 
+    }
+
+    .h-100-px {
+        height: 100px;
     }
 
     .checkbox-wrapper {
@@ -295,6 +303,7 @@ header {
     left: 0;
     right: 0;
     display: none;
+    z-index: 999;
 
     .delete-form {
         position: fixed;
@@ -306,6 +315,14 @@ header {
 
 .active {
     display: block;
+}
+
+#password-error {
+    position: absolute;
+    top: 100%;
+    font-size: 11px;
+    color: red;
+    font-weight: 600;
 }
 
 // Small devices (landscape phones, 576px and up)
