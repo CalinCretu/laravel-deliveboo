@@ -31,7 +31,7 @@
                         @enderror
                         <label for="password" class="label-input">{{ __('Password') }}</label>
                     </div>
-                    <div class="mb-4 row">
+                    {{-- <div class="mb-4 row">
                         <div class="col-md-6 offset-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember"
@@ -41,17 +41,17 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <button type="submit" class="btn btn-primary orange">
                         {{ __('Login') }}
                     </button>
-                    @if (Route::has('password.request'))
+                    {{-- @if (Route::has('password.request'))
                         <p class="info">
                             <a class="form-link" href="{{ route('password.request') }}">
                                 {{ __('Hai dimenticato la password?') }}
                             </a>
                         </p>
-                    @endif
+                    @endif --}}
                 </form>
                 {{-- </div> --}}
             </div>

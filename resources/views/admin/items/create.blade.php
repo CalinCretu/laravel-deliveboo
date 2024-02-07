@@ -26,13 +26,16 @@
                     </div>
                     <div class="input">
                         <input type="number" class="form-control" name="price" id="price" autocomplete="off"
-                            value="{{ old('price') }}" required>
+                            value="{{ old('price') }}" required step="0.01" min="0">
 
                         <label for="price" class="label-input">Prezzo</label>
                     </div>
-                    <div class="input d-flex">
+                    <div class="input h-100-px d-flex flex-column flex-sm-row align-items-center gap-4">
                         <label for="item_img" class="label-input-file">Aggiungi immagine</label>
-                        <input class="input-file" name="item_img" type="file" id="item_img">
+                        <input class="input-file" name="item_img" type="file" id="item_img" required
+                            onchange="PreviewImage();">
+                        {{-- <input class="input-file" name="restaurant_img" required type="file" id="restaurant_img"> --}}
+                        <img id="uploadPreview" class="inactive" style="width: 80px; height: 80px;" />
                     </div>
                     <div class="checkbox-wrapper">
                         <div class="checkbox-input">
@@ -64,4 +67,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        imgPrevDomEl = document.getElementById("uploadPreview");
+        
+        function PreviewImage() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("item_img").files[0]);
+            oFReader.onload = function(oFREvent) {
+                imgPrevDomEl.classList.remove('inactive');
+                imgPrevDomEl.src = oFREvent.target.result;
+            };
+        }
+    </script>
 @endsection

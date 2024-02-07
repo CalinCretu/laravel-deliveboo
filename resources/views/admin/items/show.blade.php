@@ -8,24 +8,27 @@
     <section class="items-show">
         <div class="wrapper">
             <div class="cards">
+                <div class="buttons">
+                    <a href="{{ route('admin.items.edit', ['slug' => Auth::user()->slug, 'item' => $item]) }}"
+                        class="edit-btn">Modifica</a>
+                    <button id="myBtn" class="delete-btn">Elimina</button>
+                </div>
                 <div class="card image-card col-auto">
                     <img src="{{ asset('storage/' . $item->item_img) }}" class="" alt="">
                 </div>
                 <div class="card description-card col-auto">
-                    <h1>{{ $item->name }}</h1>
+                    <div class="item-name">{{ $item->name }}</div>
                     <ul class="ps-0">
                         <li>{{ $item->description }}</li>
                         <li class="price">&euro; {{ $item->price }}</li>
                     </ul>
                     <div class="flags">
-                        <div style="{{ $item->is_spicy ? '' : 'display: none;' }}">Piccante</div>
-                        <div style="{{ $item->is_vegan ? '' : 'display: none;' }}">Vegano</div>
-                        <div style="{{ $item->is_gluten_free ? '' : 'display: none;' }}">Senza Glutine</div>
-                    </div>
-                    <div class="buttons">
-                        <a href="{{ route('admin.items.edit', ['slug' => Auth::user()->slug, 'item' => $item]) }}"
-                            class="edit-btn">Modifica</a>
-                        <button id="myBtn" class="delete-btn">Elimina</button>
+                        <div class="label-spicy" style="{{ $item->is_spicy ? '' : 'display: none;' }}"><i
+                                class="fa-solid fa-pepper-hot"></i>Piccante</div>
+                        <div class="label-veg" style="{{ $item->is_vegan ? '' : 'display: none;' }}"><i
+                                class="fa-solid fa-seedling"></i>Vegano</div>
+                        <div class="label-gf" style="{{ $item->is_gluten_free ? '' : 'display: none;' }}"><i
+                                class="fa-solid fa-wheat-awn-circle-exclamation"></i>Senza Glutine</div>
                     </div>
                 </div>
                 <a class="next-item"
@@ -34,8 +37,9 @@
                     href="{{ route('admin.items.show', ['slug' => Auth::user()->slug, 'item' => $previousItemId]) }}">&lsaquo;</a>
             </div>
             <div id="bgForm" class="bg-form">
-                <div class="d-flex gap-3 delete-form">
-                    <form action="{{ route('admin.items.destroy', $item->id) }}" method="POST">
+                <div class="d-flex align-items-center gap-3 delete-form">
+                    <h4 class="text-light">Confermi di voler eliminare {{ $item->name }}?</h4>
+                    <form action="{{ route('admin.items.destroy', $item) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger btn-lg">Si</button>
@@ -55,7 +59,7 @@
         // console.log(formDomEl);
 
         deleteDomEl.addEventListener('click', function() {
-            // console.log('delete');
+            console.log('delete');
             formDomEl.classList.add("active")
         })
 

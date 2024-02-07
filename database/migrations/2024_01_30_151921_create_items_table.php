@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->unsignedDecimal('price', 5, 2);
+            $table->unsignedDecimal('price', $precision = 8, $scale = 2);
             $table->string('item_img');
             $table->text('description');
             $table->boolean('is_vegan')->default(0);

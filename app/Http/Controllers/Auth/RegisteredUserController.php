@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['required', 'string',],
-            'vat_id' => ['required', 'string', 'min:13', 'max:13'],
+            'vat_id' => ['required', 'string', 'min:13', 'max:13', 'unique:'  . User::class],
             'restaurant_img' => 'required|max:2048|file'
         ]);
 
