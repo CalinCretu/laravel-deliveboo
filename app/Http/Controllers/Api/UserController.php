@@ -55,6 +55,12 @@ class UserController extends Controller
         // Ritorna gli "items" dell'utente trovato
         $items = $user->items;
 
-        return response()->json($items);
+        return response()->json([
+            'success' => true,
+            'results' => [
+                'items' => $items,
+                'user' => $user 
+            ]
+        ]);
     }
 }
