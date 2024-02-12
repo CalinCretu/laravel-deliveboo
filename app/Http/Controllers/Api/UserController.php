@@ -46,7 +46,7 @@ class UserController extends Controller
     public function getItemsBySlug($slug)
     {
         // Trova l'utente con lo slug specificato
-        $user = User::where('slug', $slug)->first();
+        $user = User::where('slug', $slug)->with('types')->first();
 
         if (!$user) {
             return response()->json(['message' => 'Utente non trovato'], 404);
