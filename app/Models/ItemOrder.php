@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ItemOrder extends Model
 {
+    public $timestamps = false;
     use HasFactory;
+    protected $table = 'item_order';
 
     protected $fillable = [
-        'quantity'
+        'quantity',
+        'partial_price'
     ];
 }
