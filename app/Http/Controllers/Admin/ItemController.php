@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateItemRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,15 +30,29 @@ class ItemController extends Controller
         }
     }
 
-    public function statistics(string $slug)
+    public function statistics(string $slug, int $selectedYear)
     {
-
         $user = Auth::user();
         if ($slug == $user->slug) {
+            $years = Order::selectRaw('YEAR(order_date) as year')
+                ->distinct()
+                ->orderBy('year', 'desc')
+                ->pluck('year')
+                ->toArray();
+            $totalSalesByMonth = [];
+            $dataMonths = [];
+            for ($i = 0; $i < 12; $i++) {
+                $dataMonths[$i] = Order::whereYear('order_date', $selectedYear)->whereMonth('order_date', $i + 1)->count();
+            }
+
+            for ($i = 0; $i < 12; $i++) {
+                $totalSalesByMonth[$i] = Order::whereYear('order_date', $selectedYear)->whereMonth('order_date', $i + 1)->sum('total_price');
+            }
+
             $user_id = $user->id;
             $items = Item::where('user_id', '=', $user_id)->get();
             $orders = Order::where('user_id', '=', $user_id)->get();
-            return view('admin.items.statistics', compact('items', 'user', 'orders'));
+            return view('admin.items.statistics', compact('items', 'user', 'orders', 'dataMonths', 'totalSalesByMonth', 'years', 'selectedYear'));
         } else {
             return view('admin.errors.error');
         }
@@ -118,10 +133,10 @@ class ItemController extends Controller
         $user = Auth::user();
         $items = Item::where('user_id', '=', $user->id)->pluck('id')->toArray();
         $currentItemIndex = array_search($item->id, $items);
-        if(count($items) == 1) {
+        if (count($items) == 1) {
             $nextItemId = $items[$currentItemIndex];
             $previousItemId = $items[$currentItemIndex];
-        }else if ($currentItemIndex == 0) {
+        } else if ($currentItemIndex == 0) {
             $nextItemId = $items[$currentItemIndex + 1];
             $previousItemId = $items[count($items) - 1];
         } elseif ($currentItemIndex == count($items) - 1) {

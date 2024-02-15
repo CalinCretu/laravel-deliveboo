@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])->name('admin.')->group(function () {
     Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
     Route::get('{slug}/orders', [OrderContoller::class, 'index'])->name('orders');
-    Route::get('{slug}/statistics', [ItemController::class, 'statistics'])->name('items.statistics');
+    Route::get('{slug}/statistics/{year}', [ItemController::class, 'statistics'])->name('items.statistics');
 });
 
 Route::middleware('auth')->group(function () {
