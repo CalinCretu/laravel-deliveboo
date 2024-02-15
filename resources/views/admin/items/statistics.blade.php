@@ -5,66 +5,90 @@
 @endsection
 
 @section('content')
-    <div class="container row my-5">
-        <div class="col-6">
+    <div class="container row my-5 justify-content-center row-gap-5">
+      <div class="col-12 d-flex justify-content-center align-items-center gap-4">
+        <h1 class="">Statistiche Ordini {{$selectedYear}}</h1>
+        <select name="year" id="yearSelect">
+          @foreach ($years as $year)
+              <option class="yearOption" value="{{ $year }}" @if ($year == $selectedYear) selected @endif>{{ $year }}</option>
+          @endforeach
+      </select>
+      </div>
+        <div class="col-10">
             <canvas id="myChart"></canvas>
         </div>
-        <div class="col-6">
+        <div class="col-10">
             <canvas id="Chart"></canvas>
         </div>
     </div>
-  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <script>
-    const ctx = document.getElementById('myChart');
-  
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: 'Statistiche dei Ordini',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    (async function() {
-  const data = [
-    { year: 2010, count: 10 },
-    { year: 2011, count: 20 },
-    { year: 2012, count: 15 },
-    { year: 2013, count: 25 },
-    { year: 2014, count: 22 },
-    { year: 2015, count: 30 },
-    { year: 2016, count: 28 },
-  ];
+    <script>
+        const yearSelect = document.getElementById('yearSelect');
+        const ctx = document.getElementById('myChart');
+        const dataArray = {!! json_encode($dataMonths) !!};
+        const dataAmountArray = {!! json_encode($totalSalesByMonth) !!};
+        const labels = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ordini per Mese',
+                    data: dataArray,
+                    borderWidth: 1,
+                    borderColor: '#FC8019',
+                    backgroundColor: '#FC8019',
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
 
-  new Chart(
-    document.getElementById('Chart'),
-    {
-      type: 'bar',
-      data: {
-        labels: data.map(row => row.year),
-        datasets: [
-          {
-            label: 'Acquisitions by year',
-            data: data.map(row => row.count)
-          }
-        ]
-      }
-    }
-  );
-})();
-  </script>
-  
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+
+        new Chart(
+            document.getElementById('Chart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Vendite per Mese',
+                        data: dataAmountArray,
+                        borderWidth: 2,
+                        borderColor: '#FC8019',
+                        backgroundColor: 'rgba(252, 128, 25, 0.3)',
+                        // yAxisID: '€';
+                    }]
+                }
+            }
+        );
+
+        yearSelect.addEventListener('change', function() {
+            var selectedYear = yearSelect.value;
+            var slug = "{{ $user->slug }}";
+            window.location.href = "{{ route('admin.items.statistics', ['slug' => ':slug', 'year' => ':year']) }}"
+                .replace(':slug', slug)
+                .replace(':year', selectedYear);
+        });
+    </script>
 @endsection

@@ -25,10 +25,11 @@ class RegisteredUserController extends Controller
     {
         $user = Auth::user();
         if ($slug ==  $user->slug) {
+            $currentYear = date('Y');
             $user_id = $user->id;
             $items = Item::where('user_id', '=', $user_id)->get();
             $orders = Order::where('user_id', '=', $user_id)->get();
-            return view('dashboard', compact('items', 'user', 'orders'));
+            return view('dashboard', compact('items', 'user', 'orders', 'currentYear'));
         } else {
             return view('admin.errors.error');
         }

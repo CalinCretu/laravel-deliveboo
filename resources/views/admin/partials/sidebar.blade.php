@@ -19,7 +19,7 @@
             </a>
         </li>
         <li class="btn-sidebar text-sm-start">
-            <a href="{{route('admin.items.statistics', $user->slug)}}">
+            <a href="{{route('admin.items.statistics', ['slug'=> $user->slug, 'year'=> 2024 ])}}">
                 <span class="sidebar-icon px-sm-2"><i class="fa-solid fa-square-poll-vertical"></i></span>
                 <p class="d-none d-sm-inline-block mb-0">Statistiche</p>
             </a>
@@ -30,12 +30,6 @@
                 <p class="d-none d-sm-inline-block mb-0">Crea Piatto</p>
             </a>
         </li>
-        {{-- <li class="btn-sidebar text-sm-start">
-            <a href="#">
-                <span class="sidebar-icon px-sm-2">&homtht;</span>
-                <p class="d-none d-sm-inline-block mb-0">Qualcosa</p>
-            </a>
-        </li> --}}
     </ul>
 </div>
 

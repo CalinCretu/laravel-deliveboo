@@ -76,11 +76,18 @@
         color: rgb(255, 255, 255);
         cursor: pointer;
 
+        .plus-dark {
+            color: black;
+        }
 
         &:hover {
             transition: 0.5s;
             transform: scale(1.4);
             color: $orange;
+
+            .plus-dark {
+                color: $orange;
+            }
         }
     }
 

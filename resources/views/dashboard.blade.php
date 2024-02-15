@@ -35,15 +35,20 @@
                     <div class="col-4 d-flex justify-content-center align-items-center p-1 position-relative">
                             <img class="item-img item-img-blur" src="{{Vite::asset('resources/img/double-burger.jpg')}}" alt="">
                         <div class="show-more">
-                            <a href="{{ route('admin.items.index', $user->slug, ) }}">
+                            <a href="{{ route('admin.items.index', $user->slug) }}">
                                 <i class="fa-solid fa-plus"></i>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex card-border">
+            <div class="d-flex card-border justify-content-center align-items-center p-1 position-relative">
                 <img class="statistic-img" src="{{Vite::asset('resources/img/Cattura.png')}}" alt="">
+                <div class="show-more">
+                    <a href="{{route('admin.items.statistics', ['slug'=> $user->slug, 'year'=> 2024 ])}}">
+                        <i class="fa-solid fa-plus plus-dark"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
