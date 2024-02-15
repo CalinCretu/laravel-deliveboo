@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ItemController;
+use App\Http\Controllers\Api\PaymentController as PaymentController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'getUsersByName']);
 Route::get('/items/{user:slug}', [UserController::class, 'getItemsBySlug']);
+Route::post('/createTransaction', [PaymentController::class, 'createTransaction']);
 // Route::get('/items/{user:slug}', [ItemController::class, 'index']);
