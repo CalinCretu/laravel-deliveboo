@@ -31,7 +31,7 @@
             <nav class="my-navbar">
                 <div class="logo">
                     @if(Auth::user())
-                    <a class="" href="{{route('dashboard', $user->slug)}}">
+                    <a class="" href="{{route('dashboard', Auth::user()->slug)}}">
                         <img class="d-none d-sm-none d-md-block d-lg-block d-xl-block " width="20%" class="item-img" src="{{Vite::asset('resources/img/Logo 3.png')}}" alt="">
                            {{-- config('app.name', 'Laravel') --}}
                         <img class="d-block d-md-none" width="15%" class="item-img" src="{{Vite::asset('resources/img/Logo 1.png')}}" alt="">
