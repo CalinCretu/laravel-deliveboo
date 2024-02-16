@@ -15,38 +15,37 @@ class OrderController extends Controller
     {
 
         $request->validate([
-            'orders.*.order_date' => ['required|'],
-            'orders.*.client_address' => ['required', 'string'],
-            'orders.*.total_price' => ['required'],
-            'orders.*.details' => ['nullable', 'string'],
-            'orders.*.client_email' => ['required', 'email'],
-            'orders.*.client_phone' => ['required'],
-            'orders.*.client_name' => ['required', 'string'],
+            'order_date' => ['required'],
+            'client_address' => ['required', 'string'],
+            'total_price' => ['required'],
+            'details' => ['nullable', 'string'],
+            'client_email' => ['required', 'email'],
+            'client_phone' => ['required'],
+            'client_name' => ['required', 'string'],
             // 'user_id' => 'exists:user,id',
             // 'item_id' => 'esists:item,id',
-            'orders.*.quantity' => ['required', 'numeric'],
-            'orders.*.partial_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/']
+            'items.*.quantity' => ['required', 'numeric'],
+            'items.*.partial_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/']
         ]);
 
         $data = $request->all();
+        // $new_order = $data;
 
-        foreach ($data as $order) {
-            $new_order = new Order();
+        $new_order = new Order();
 
-            $new_order->order_date = $order['order_date'];
-            $new_order->client_address = $order['client_address'];
-            $new_order->total_price = $order['total_price'];
-            $new_order->details = $order['details'];
-            $new_order->client_email = $order['client_email'];
-            $new_order->client_phone = $order['client_phone'];
-            $new_order->client_name = $order['client_name'];
-            $new_order->user_id = $order['user_id'];
+        $new_order->order_date = $data['order_date'];
+        $new_order->client_address = $data['client_address'];
+        $new_order->total_price = $data['total_price'];
+        $new_order->details = $data['details'];
+        $new_order->client_email = $data['client_email'];
+        $new_order->client_phone = $data['client_phone'];
+        $new_order->client_name = $data['client_name'];
+        $new_order->user_id = $data['user_id'];
 
-            $new_order->save();
-        }
+        $new_order->save();
 
         // Salvataggio degli articoli nella tabella pivot item_order
-        foreach ($data as $itemData) {
+        foreach ($data['items'] as $itemData) {
             $item_order = new ItemOrder();
 
             $item_order->order_id = $new_order->id;
