@@ -1,4 +1,4 @@
-@use './variables' as *;
+@use './variables'as *;
 @import '~bootstrap/scss/bootstrap';
 
 
@@ -23,13 +23,22 @@
 
     .card-img {
         position: relative;
+        border: 1px solid $orange;
+        border-radius: 10px;
+        overflow: hidden;
+        height: 40vh;
         grid-column: 1;
 
-        .resturant-img {
-            width: 100%;
-            border: 1px solid $orange;
-            border-radius: 10px;
+        &::after {
+            position: absolute;
+            content: '';
+            inset: 0;
+            mask-image: linear-gradient(to right, transparent 25%, black 70%);
+            backdrop-filter: blur(4px);
+            background: linear-gradient(to right, transparent 25%, rgba(0, 0, 0, 0.567) 70%);
         }
+
+
 
         .user-detail-card {
             position: absolute;
@@ -37,13 +46,14 @@
             bottom: 0px;
             border-radius: 10px;
             padding: 10px 10px 0 0;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             height: 100%;
-            text-align: right;
+            text-align: left;
             color: white;
-            backdrop-filter: blur(10px);
+            z-index: 10;
+            // backdrop-filter: blur(10px);
         }
 
         .buisness-name {
@@ -58,9 +68,85 @@
         }
     }
 
+    .shop-detail-card {
+        border: 1px solid $orange;
+        border-radius: 10px;
+        background-color: $linen;
+        padding: 0.75rem;
+
+    }
+
+    .title-card {
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    .items-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .item {
+        position: relative;
+        border-radius: 0.5rem;
+        aspect-ratio: 1;
+        overflow: hidden;
+        transition: $transition;
+
+        &::after {
+            content: '';
+            opacity: 0;
+            position: absolute;
+            inset: 0;
+            background-color: rgba($color: #000000, $alpha: 0.4);
+            filter: blur(4px);
+            transition: $transition;
+        }
+
+        &:hover::after {
+            opacity: 1;
+        }
+
+        .name {
+            position: absolute;
+            width: 100%;
+            top: 120%;
+            left: 50%;
+            padding: 1rem;
+            transform: translate(-50%, -50%);
+            color: $white;
+            font-weight: 600;
+            z-index: 10;
+            opacity: 0;
+            transition: $transition;
+        }
+
+        &:hover .name {
+
+            top: 50%;
+            opacity: 1;
+
+        }
+    }
+
+    .resturant-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+    }
+
     .item-img {
         width: 100%;
-        border-radius: 5px;
+        height: 100%;
+        object-fit: cover;
+        transition: $transition;
+
+    }
+
+    .item:hover img {
+        transform: scale(1.1);
     }
 
     .item-img-blur {
@@ -68,27 +154,45 @@
     }
 
     .show-more {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 50px;
+        // position: absolute;
+        display: grid;
+        place-items: center;
+
+        // font-size: 50px;
         color: rgb(255, 255, 255);
         cursor: pointer;
+
+        .btn {
+            display: flex;
+align-items: center;
+justify-content: center;
+
+            background-color: $orange;
+            border: 1px solid $orange;
+            height: 100%;
+            transition: $transition;
+
+            &:hover {
+                background-color: transparent;
+                color: $orange;
+
+
+            }
+        }
 
         .plus-dark {
             color: black;
         }
 
-        &:hover {
-            transition: 0.5s;
-            transform: scale(1.4);
-            color: $orange;
+        // &:hover  {
+        //     transition: 0.5s;
+        //     height: 100%;
+        //     color: $orange;
 
-            .plus-dark {
-                color: $orange;
-            }
-        }
+        //     .plus-dark {
+        //         color: $orange;
+        //     }
+        // }
     }
 
     .statistic-img {
@@ -128,7 +232,8 @@
             }
 
             .buisness-name {
-                font-size: 50px;
+                font-size: 3rem;
+                font-weight: 600;
             }
 
             .user-detail {
