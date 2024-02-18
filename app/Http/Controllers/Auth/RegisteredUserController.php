@@ -28,8 +28,9 @@ class RegisteredUserController extends Controller
             $currentYear = date('Y');
             $user_id = $user->id;
             $items = Item::where('user_id', '=', $user_id)->get();
+            $last_items = Item::where('user_id', '=', $user_id)->orderBy('id', 'desc')->take(5)->get();
             $orders = Order::where('user_id', '=', $user_id)->get();
-            return view('dashboard', compact('items', 'user', 'orders', 'currentYear'));
+            return view('dashboard', compact('items', 'user', 'last_items', 'orders', 'currentYear'));
         } else {
             return view('admin.errors.error');
         }

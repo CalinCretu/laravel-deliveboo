@@ -5,9 +5,14 @@
 
 @use './partials/_show_item';
 @use './partials/index_item';
+@use './partials/dashboard';
 
 @import '~bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+    font-family: 'Outfit', sans-serif;
+}
 
 a {
     text-decoration: none;
@@ -26,7 +31,7 @@ img {
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit', sans-serif !important;
     min-height: 100vh;
 }
 
@@ -155,6 +160,7 @@ header {
             text-wrap: nowrap;
             padding: 0.5rem 1rem;
             border-radius: 5rem;
+
             &:active {
                 transform: scale(0.9);
             }
@@ -349,6 +355,7 @@ header {
     font-weight: 600;
     cursor: pointer;
     color: $orange;
+
     &:hover {
         background-color: $orange;
         color: white;
