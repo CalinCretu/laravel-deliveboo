@@ -10,21 +10,47 @@
 
     .dashboard-card-body {
         display: grid;
-        grid-template-columns: repeat(1fr);
+        grid-template-columns: 1fr;
         gap: 2rem;
+        padding-bottom: 3rem;
     }
 
-    .card-border {
+    .statistics-card {
+        display: flex;
+        flex-direction: column;
         border: 1px solid $orange;
-        border-radius: 10px;
+        border-radius: 0.75rem;
         background-color: $linen;
-        padding: 10px;
+        padding: 0.75rem;
+
+        .btn-statistics {
+            background-color: $orange;
+            border: 1px solid $orange;
+            color: $white;
+            padding: 0.5rem 1rem;
+            border-radius: 5rem;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: $transition;
+
+            &:hover {
+                background-color: transparent;
+                color: $orange;
+
+            }
+
+        }
+
+        #my-chart {
+            max-width: 100%;
+            margin-bottom: 1.5rem;
+        }
     }
 
     .card-img {
         position: relative;
         border: 1px solid $orange;
-        border-radius: 10px;
+        border-radius: 0.75rem;
         overflow: hidden;
         height: 20vh;
         grid-column: 1;
@@ -93,7 +119,7 @@
 
     .shop-detail-card {
         border: 1px solid $orange;
-        border-radius: 10px;
+        border-radius: 0.75rem;
         background-color: $linen;
         padding: 0.75rem;
 
@@ -193,6 +219,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 100%;
 
             background-color: $orange;
             border: 1px solid $orange;
@@ -206,6 +233,8 @@
 
             }
         }
+
+
 
         .plus-dark {
             color: black;
@@ -227,6 +256,8 @@
         border-radius: 10px;
     }
 }
+
+
 
 
 

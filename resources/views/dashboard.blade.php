@@ -3,7 +3,7 @@
 @section('content')
 <div class="section-dashboard my-5">
     <div class="container">
-        <div class="dashboard-card-body p-0">
+        <div class="dashboard-card-body">
             <div class="card-img">
                 @if ($user->restaurant_img)
                 <img class="resturant-img" src="{{asset('storage/' . $user->restaurant_img)}}" alt="poster">
@@ -47,12 +47,13 @@
                    
                 </div>
             </div>
-            <div class="d-flex card-border justify-content-center align-items-center p-1 position-relative">
+            <div class="statistics-card">
+                <h3 class="title-card">Statistiche ordini</h3>
                 {{-- <img class="statistic-img" src="{{Vite::asset('resources/img/Cattura.png')}}" alt=""> --}}
-                <canvas id="Chart"></canvas>
-                <div class="show-more">
+                <canvas id="my-chart"></canvas>
+                <div class="btn-statistics">
                     <a href="{{route('admin.items.statistics', ['slug'=> $user->slug, 'year'=> 2024 ])}}">
-                        <i class="fa-solid fa-plus plus-dark"></i>
+                        Vedi tutte le statistiche
                     </a>
                 </div>
             </div>
@@ -65,11 +66,11 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    {{-- <script>
-        const yearSelect = document.getElementById('yearSelect');
-        const ctx = document.getElementById('myChart');
-        // const dataArray = {!! json_encode($dataMonths) !!};
-        const dataAmountArray = {!! json_encode($totalSalesByMonth) !!};
+    <script>
+       
+        const ctx = document.getElementById('my-chart');
+        const dataArray = {!! json_encode($dataMonths) !!};
+       
         const labels = [
             "January",
             "February",
@@ -108,29 +109,9 @@
             }
         });
 
-        new Chart(
-            document.getElementById('Chart'), {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Vendite per Mese',
-                        data: dataAmountArray,
-                        borderWidth: 2,
-                        borderColor: '#FC8019',
-                        backgroundColor: 'rgba(252, 128, 25, 0.3)',
-                        // yAxisID: '€';
-                    }]
-                }
-            }
-        );
+       
 
-        yearSelect.addEventListener('change', function() {
-            var selectedYear = yearSelect.value;
-            var slug = "{{ $user->slug }}";
-            window.location.href = "{{ route('admin.items.statistics', ['slug' => ':slug', 'year' => ':year']) }}"
-                .replace(':slug', slug)
-                .replace(':year', selectedYear);
-        });
-    </script> --}}
+       
+       
+    </script>
 @endsection
