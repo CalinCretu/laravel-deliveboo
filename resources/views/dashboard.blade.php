@@ -17,7 +17,7 @@
                 
                 <div class="user-detail-card"> 
                     <ul>
-                        <li class="buisness-name">{{$user->business_name}}</></li>
+                        <li class="business-name">{{$user->business_name}}</></li>
                         <li class="user-detail">{{$user->email}}</></li>
                         <li class="user-detail">{{$user->address}}</></li>
                         <li class="user-detail">{{$user->vat_id}}</li>
@@ -35,32 +35,21 @@
                         <img class="item-img" src="{{asset('storage/' . $item->item_img)}}" alt="">
                         <span class="name">{{ $item->name }}</span>
                     </div>
-                    {{-- <div class="col-4 p-1">
-                        <img class="item-img" src="{{Vite::asset('resources/img/double-burger.jpg')}}" alt="">
-                    </div>
-                    <div class="col-4 p-1">
-                        <img class="item-img" src="{{Vite::asset('resources/img/double-burger.jpg')}}" alt="">
-                    </div>
-                    <div class="col-4 p-1">
-                        <img class="item-img" src="{{Vite::asset('resources/img/double-burger.jpg')}}" alt="">
-                    </div>
-                    <div class="col-4 p-1">
-                        <img class="item-img" src="{{Vite::asset('resources/img/double-burger.jpg')}}" alt="">
-                    </div> --}}
+                    
                     @endforeach
-                    {{-- <div class="">
-                            <img class="item-img item-img-blur" src="{{Vite::asset('resources/img/double-burger.jpg')}}" alt=""> --}}
+                    
                         <div class="show-more">
                             <a href="{{ route('admin.items.index', $user->slug) }}" class="btn">
                                 Vai al menù completo
-                                {{-- <i class="fa-solid fa-plus"></i> --}}
+                                
                             </a>
                         </div>
-                    {{-- </div> --}}
+                   
                 </div>
             </div>
             <div class="d-flex card-border justify-content-center align-items-center p-1 position-relative">
-                <img class="statistic-img" src="{{Vite::asset('resources/img/Cattura.png')}}" alt="">
+                {{-- <img class="statistic-img" src="{{Vite::asset('resources/img/Cattura.png')}}" alt=""> --}}
+                <canvas id="Chart"></canvas>
                 <div class="show-more">
                     <a href="{{route('admin.items.statistics', ['slug'=> $user->slug, 'year'=> 2024 ])}}">
                         <i class="fa-solid fa-plus plus-dark"></i>
@@ -74,4 +63,74 @@
                 
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {{-- <script>
+        const yearSelect = document.getElementById('yearSelect');
+        const ctx = document.getElementById('myChart');
+        // const dataArray = {!! json_encode($dataMonths) !!};
+        const dataAmountArray = {!! json_encode($totalSalesByMonth) !!};
+        const labels = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ordini per Mese',
+                    data: dataArray,
+                    borderWidth: 1,
+                    borderColor: '#FC8019',
+                    backgroundColor: '#FC8019',
+                    fill: false,
+                    tension: 0.1
+                }]
+            },
+
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+
+        new Chart(
+            document.getElementById('Chart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Vendite per Mese',
+                        data: dataAmountArray,
+                        borderWidth: 2,
+                        borderColor: '#FC8019',
+                        backgroundColor: 'rgba(252, 128, 25, 0.3)',
+                        // yAxisID: '€';
+                    }]
+                }
+            }
+        );
+
+        yearSelect.addEventListener('change', function() {
+            var selectedYear = yearSelect.value;
+            var slug = "{{ $user->slug }}";
+            window.location.href = "{{ route('admin.items.statistics', ['slug' => ':slug', 'year' => ':year']) }}"
+                .replace(':slug', slug)
+                .replace(':year', selectedYear);
+        });
+    </script> --}}
 @endsection

@@ -94,6 +94,7 @@
     padding: 0.5rem 1rem;
     border-radius: 5rem;
     width: 100%;
+
     &:hover {
         background-color: transparent;
         color: green;
@@ -111,44 +112,43 @@
         justify-content: start;
         align-items: center;
         gap: 10px;
-    
+
         @media (max-width: 768px) {
-          justify-content: space-between;
+            justify-content: space-between;
         }
-    
+
         .edit-btn,
         .delete-btn {
             // display: none;
-          padding: 0.15rem 0.85rem;
-          border: 2px solid $orange;
-          border-radius: 25px;
-          background-color: $orange;
-          color: white;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: $transition;
-    
-          &:hover {
-            background-color: rgb(252, 128, 25, 25%);
-            color: $orange;
-          }
+            padding: 0.15rem 0.85rem;
+            border: 2px solid $orange;
+            border-radius: 25px;
+            background-color: $orange;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: $transition;
+
+            &:hover {
+                background-color: $white;
+                color: $orange;
+            }
         }
-    
+
         .delete-btn {
-          background-color: red;
-          border: 2px solid red;
-    
-          &:hover {
-            background-color: rgb(255, 0, 0, 25%);
-            color: red;
-          }
+            background-color: red;
+            border: 2px solid red;
+
+            &:hover {
+                background-color: $white;
+                color: red;
+            }
         }
-    
+
         .edit-btn:active,
         .delete-btn:active {
-          transform: scale(0.9);
-          transform: $transition_short;
+            transform: scale(0.9);
+            transform: $transition_short;
         }
-      }
+    }
 }
-
