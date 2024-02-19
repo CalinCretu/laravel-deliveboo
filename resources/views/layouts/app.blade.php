@@ -86,7 +86,7 @@
                 
         <div class="app-body container">
             @if(Auth::user())
-                <aside class=" my-5 sidebar">
+                <aside class=" my-0 my-md-5 sidebar">
                     @include('admin.partials.sidebar')
                 </aside>
             @endif

@@ -30,14 +30,16 @@
                     </div>
                 </div>
                 <div id="bgForm" class="bg-form">
-                    <div class="d-flex align-items-center gap-3 delete-form">
-                        <h4 class="text-light">Confermi di voler eliminare {{ $item->name }}?</h4>
-                        <form action="{{ route('admin.items.destroy', ['item' => $item]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-lg">Si</button>
-                        </form>
-                        <button class="no-btn btn btn-primary btn-lg">No</button>
+                    <div class="delete-form">
+                        <h4>Confermi di voler eliminare {{ $item->name }}?</h4>
+                       <div class="bg-form-buttons">
+                            <form action="{{ route('admin.items.destroy', ['item' => $item]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="delete-btn">Si</button>
+                            </form>
+                            <button class="return-btn">No</button>
+                       </div>
                     </div>
                 </div>
             @endforeach
@@ -47,7 +49,7 @@
     <script>
         const deleteDomEl = document.querySelectorAll(".delete-btn");
         const formDomEl = document.querySelectorAll(".bg-form");
-        const noBtnDomEl = document.querySelectorAll(".no-btn");
+        const noBtnDomEl = document.querySelectorAll(".return-btn");
 
         for (let i = 0; i < deleteDomEl.length; i++) {
             deleteDomEl[i].addEventListener('click', function() {
