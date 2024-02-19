@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
             $orders = Order::where('user_id', '=', $user_id)->get();
             $dataMonths = [];
             for ($i = 0; $i < 12; $i++) {
-                $dataMonths[$i] = Order::whereYear('order_date', $currentYear)->whereMonth('order_date', $i + 1)->count();
+                $dataMonths[$i] = Order::where('user_id', $user->id)->whereYear('order_date', $currentYear)->whereMonth('order_date', $i + 1)->count();
             };
             return view('dashboard', compact('items', 'user', 'last_items', 'orders', 'currentYear', 'dataMonths'));
         } else {

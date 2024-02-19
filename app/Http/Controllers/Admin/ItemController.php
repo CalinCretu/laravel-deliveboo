@@ -34,7 +34,7 @@ class ItemController extends Controller
     {
         $user = Auth::user();
         if ($slug == $user->slug) {
-            $years = Order::selectRaw('YEAR(order_date) as year')
+            $years = Order::where('user_id', $user->id)->selectRaw('YEAR(order_date) as year')
                 ->distinct()
                 ->orderBy('year', 'desc')
                 ->pluck('year')
@@ -42,11 +42,11 @@ class ItemController extends Controller
             $totalSalesByMonth = [];
             $dataMonths = [];
             for ($i = 0; $i < 12; $i++) {
-                $dataMonths[$i] = Order::whereYear('order_date', $selectedYear)->whereMonth('order_date', $i + 1)->count();
+                $dataMonths[$i] = Order::where('user_id', $user->id)->whereYear('order_date', $selectedYear)->whereMonth('order_date', $i + 1)->count();
             }
 
             for ($i = 0; $i < 12; $i++) {
-                $totalSalesByMonth[$i] = Order::whereYear('order_date', $selectedYear)->whereMonth('order_date', $i + 1)->sum('total_price');
+                $totalSalesByMonth[$i] = Order::where('user_id', $user->id)->whereYear('order_date', $selectedYear)->whereMonth('order_date', $i + 1)->sum('total_price');
             }
 
             $user_id = $user->id;
