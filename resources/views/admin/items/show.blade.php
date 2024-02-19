@@ -37,14 +37,16 @@
                     href="{{ route('admin.items.show', ['slug' => Auth::user()->slug, 'item' => $previousItemId]) }}">&lsaquo;</a>
             </div>
             <div id="bgForm" class="bg-form">
-                <div class="d-flex align-items-center gap-3 delete-form">
-                    <h4 class="text-light">Confermi di voler eliminare {{ $item->name }}?</h4>
-                    <form action="{{ route('admin.items.destroy', $item) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-lg">Si</button>
-                    </form>
-                    <button id="noBtn" class="btn btn-primary btn-lg">No</button>
+                <div class="delete-form">
+                    <h4>Confermi di voler eliminare {{ $item->name }}?</h4>
+                   <div class="bg-form-buttons">
+                        <form action="{{ route('admin.items.destroy', ['item' => $item]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="delete-btn">Si</button>
+                        </form>
+                        <button class="return-btn">No</button>
+                   </div>
                 </div>
             </div>
         </div>
@@ -53,7 +55,7 @@
     <script>
         const deleteDomEl = document.getElementById("myBtn");
         const formDomEl = document.getElementById("bgForm");
-        const noBtnDomEl = document.getElementById("noBtn");
+        const noBtnDomEl = document.querySelector(".return-btn");
         const anotherItemBtn = document.getElementById("anotherItemBtn");
 
         // console.log(formDomEl);

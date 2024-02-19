@@ -26,7 +26,7 @@
                     <div class="buttons">
                         <a href="{{ route('admin.items.edit', ['slug' => Auth::user()->slug, 'item' => $item]) }}"
                             class="edit-btn">Modifica</a>
-                        <button class="delete-btn">Elimina</button>
+                        <button class="delete-btn delete-item">Elimina</button>
                     </div>
                 </div>
                 <div id="bgForm" class="bg-form">
@@ -47,12 +47,16 @@
     </div>
 
     <script>
-        const deleteDomEl = document.querySelectorAll(".delete-btn");
+        const deleteDomEl = document.querySelectorAll(".delete-item");
         const formDomEl = document.querySelectorAll(".bg-form");
         const noBtnDomEl = document.querySelectorAll(".return-btn");
 
+        
+
         for (let i = 0; i < deleteDomEl.length; i++) {
             deleteDomEl[i].addEventListener('click', function() {
+            console.log(deleteDomEl.length);
+
                 // console.log('delete');
                 formDomEl[i].classList.add("active")
             })

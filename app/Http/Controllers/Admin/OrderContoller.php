@@ -17,13 +17,17 @@ class OrderContoller extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($slug)
     {
         $user = Auth::user();
-        $orders = Order::where('user_id', '=', $user->id)->orderBy('order_date', 'desc')->get();
-        $orders_amount = Order::where('user_id', '=', $user->id)->orderBy('total_price', 'desc')->get();
-        $items = Item::where('user_id', '=', $user->id)->get();
-        return view('admin.orders.index', compact('user','orders', 'orders_amount', 'items'));
+        if ($slug == $user->slug) {
+            $orders = Order::where('user_id', '=', $user->id)->orderBy('order_date', 'desc')->get();
+            $orders_amount = Order::where('user_id', '=', $user->id)->orderBy('total_price', 'desc')->get();
+            $items = Item::where('user_id', '=', $user->id)->get();
+            return view('admin.orders.index', compact('user', 'orders', 'orders_amount', 'items'));
+        } else {
+            return view('admin.errors.error');
+        }
     }
 
     /**
